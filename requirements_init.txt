@@ -10,6 +10,6 @@ paho-mqtt==1.4.0
 pysqlite3==0.2.1
 python-dateutil==2.8.0
 pytz==2018.9
-PyYAML==3.13
+PyYAML==5.1
 six==1.12.0
 django-crispy-forms
