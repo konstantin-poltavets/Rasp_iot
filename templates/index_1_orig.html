@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  {% load static %}
+  <link href="https://fonts.googleapis.com/css?family=Lobster&subset=latin,cyrillic" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+  <script src="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css"> </script>
+  <link rel="stylesheet" href="{% static 'css/mqtt.css' %}">
+
+    <title>hi </title>
+  </head>
+  <body>
+          <!-- http://getbootstrap.com/docs/4.1/components/navbar/ -->
+        <nav class="navbar navbar-expand-sm navbar-dark" style="background-color: orange">
+            <a class="navbar-brand mb-1 h1" href="/">Survey</a>
+            <button aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler" type="button" data-target="#navbarNav" data-toggle="collapse">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/form">Form</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/sheet">Sheet</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+
+<div  class="div-1a">
+	<p id = p1> Smart Home:</p>
+	<h1><a href="{% url 'graph_1' %}">graph</a><br>
+	<h1><a href="{% url 'select' %}">select records</a><br>
+	<h1><a href="{% url 'search' %}">search record</a><br>
+	<h1><a href="{% url 'logout_1' %}">REST</a> <br>
+	<h1><a href="{% url 'publish' %}">Publish</a> <br>
+	<h1><a href="{% url 'publish_1' %}">Publish_1</a><br>
+
+	<h1><a href="{% url 'template' %}">Google graph</a>
+	<hr>
+		<h1><a href="{% url 'publish' %}">Video</a>
+</div>
+
+<div  class="div-1b">
+      {% block content %}{% endblock %}
+</div>
+
+</body>
+</html>
+

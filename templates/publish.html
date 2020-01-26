@@ -1,0 +1,92 @@
+<html>
+
+<head>
+{% load static %}
+  <title>Eclipse Paho MQTT JavaScript Client Example</title>
+        <link rel="stylesheet" href= {% static "css/example_1.css" %}>
+
+  <script src={% static 'js/paho-mqtt.js' %}></script>
+  <script type="text/javascript" language= "javascript"></script>
+ <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+  <script src={% static 'js/example_1.js' %}></script>
+  
+  
+
+   <script type="text/javascript">
+      google.charts.load('current', {'packages':['gauge']});
+      google.charts.setOnLoadCallback(drawChart);
+
+      
+    </script>
+	
+
+  </head>
+  
+  <body> 
+  
+ <form> 
+<div id="left">
+<br><a href=http://kotok.asuscomm.com:8081> <img src=http://kotok.asuscomm.com:8081/ border=0 width=25%></a>
+
+</div>
+
+
+<input type="button" onclick="startConnect()" value="Connect">
+
+
+
+<div><b>The Current Diode Status:</b>
+            <input id="switch" type="button" onclick="onConnect_1()" value="ON"> <br>
+</div>
+<div>
+<b>The Current Light Status:</b>
+            <input id="switch_IR" type="button" onclick="onConnect_2()" value="OFF"> <br>
+ </div> 
+
+<div>
+<b>The Current ESP1 Status:</b>
+            <input id="switch_esp1" type="button" onclick="onConnect_3()" value="OFF"> <br>
+ </div> 
+ 
+ <div>
+<b>Watering:</b>
+            <input id="switch_water" type="button" onclick="onConnect_4()" value="OFF"> <br>
+ </div> 
+
+
+  <p>Please select colour:</p>
+  <div>
+    <input type="radio" id="contactChoice1"
+     name="colour" value="red" onclick="onConnect_g(value)">
+    <label for="contactChoice1">Red</label><br>
+
+    <input type="radio" id="contactChoice2"
+     name="colour" value="green"onclick="onConnect_g(value)"()>
+    <label for="contactChoice2">Green</label><br>
+
+    <input type="radio" id="contactChoice3"
+     name="colour" value="blue"onclick="onConnect_g(value)">
+    <label for="contactChoice3">Blue</label><br>
+	
+	<input type="radio" id="contactChoice4"
+     name="colour" value="white"onclick="onConnect_g(value)">
+    <label for="contactChoice3">White</label><br>
+  </div>
+
+
+
+       <div id="chart_div" style="width: 400px; height: 120px;"></div>
+  </form> 
+ 
+  <div id="messages"></div>
+  
+
+   
+  <script>
+ // startConnect();
+ </script>
+  
+
+</body>
+
+</html>

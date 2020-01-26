@@ -1,0 +1,19 @@
+
+<html>
+    <head>
+        <title>Modules</title>
+    </head>
+    <body>
+        <p>Modules:</p>
+
+{% block content %}
+
+        <form>
+            {% for form in form %}
+<br>{{ form.as_p }}</br>
+            {% endfor %}
+{% endblock %}
+        </form>
+
+    </body>
+</html>

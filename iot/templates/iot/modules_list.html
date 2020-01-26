@@ -1,0 +1,53 @@
+{% extends 'iot/base.html' %}
+
+{% block content %}
+<h3>Modules List:</h3>
+
+{% load staticfiles %}
+
+<form method="POST" enctype="multipart/form-data" action="">{% csrf_token %}
+    <table class="table table-hover"  , width="100%">
+        <tr> <th>id</th> <th>name</th> <th>description</th> <th>photos</th></tr>
+
+    {% for modules in modules_list %}
+
+    <tr>   <td width="40"> {{ modules.id }} </td>  <td width="100"> <a href="http:/iot/modules-edit/{{ modules.id }}" >{{ modules.name }}</a> </td>  <td>
+        {{ modules.description }} </td> <td>
+        <img src="{{ modules.photos.url }}" width="200" height="200" alt="/media/modules/IMG_20190605_215112.jpg"/>
+    </td></tr>
+
+       {% endfor %}
+
+    </table>
+
+    {% if is_paginated %}
+  <h1 class="pagination">
+    {% if page_obj.has_previous %}
+      <a><a href="?page={{ page_obj.previous_page_number }}">&laquo;</a></a>
+    {% else %}
+      <a class="disabled"><span>&laquo;</span></a>
+    {% endif %}
+    {% for i in paginator.page_range %}
+      {% if page_obj.number == i %}
+        <a class="active"><span>{{ i }} <span class="sr-only">(current)</span></span></a>
+      {% else %}
+        <a><a href="?page={{ i }}">{{ i }}</a></a>
+      {% endif %}
+    {% endfor %}
+    {% if page_obj.has_next %}
+      <a><a href="?page={{ page_obj.next_page_number }}">&raquo;</a></a>
+    {% else %}
+      <a class="disabled"><span>&raquo;</span></a>
+    {% endif %}
+  </h1>
+{% endif %}
+
+
+
+<button type="submit" class="save btn btn-default">Save</button>
+ </form>
+
+{% endblock %}
+
+
+

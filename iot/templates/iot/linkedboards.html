@@ -1,0 +1,18 @@
+{% extends 'iot/base.html' %}
+
+{% block content %}
+<h3>Linked  boards:</h3>
+
+{% load staticfiles %}
+
+<form action="." method="post">
+    {% csrf_token %}
+    {{ modules_form.as_p }}
+    {{ boards_form.as_p }}
+    <input type="submit" value="Submit">
+</form>
+
+{% endblock %}
+
+
+

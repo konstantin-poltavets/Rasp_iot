@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+ <meta charset="UTF8" />
+    <title>Select  Django</title>
+</head>
+<body class="container">
+
+    <table>
+        <tr><th>Date</th><th>Topic</th><th>Payload</th></tr>
+        {% for mqtt_1 in summary %}
+        <tr><td>{{ mqtt_1 }}</td><td>></tr>
+        {% endfor %}
+    </table>
+
+</body>
+</html>

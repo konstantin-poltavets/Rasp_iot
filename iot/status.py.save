@@ -1,0 +1,18 @@
+import psutil
+import json
+
+def cpu_temperature():
+    return psutil.sensors_temperatures()['cpu-thermal'][0].current
+
+def disk_space():
+    st = psutil.disk_usage(".")
+    return st.free, st.total
+
+def cpu_load() -> int:
+    return int(psutil.cpu_percent())
+
+def ram_usage() -> int:
+    return int(psutil.virtual_memory().percent)
+
+re(), 'CPULoad': cpu_load(), "DiskFree": disk_space()[0], "DiskTotal": disk_space()[1], "RAMUse": ram_usage()}
+        self.wfile.write(json.dumps(health).encode('utf-8'))

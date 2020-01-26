@@ -1,0 +1,19 @@
+<html>
+<head>
+    <title>Search</title>
+</head>
+<body>
+    <form action="/api-mqtt/search_result/" method="get">
+        <select name="q">
+        <option value="home/bath/esp1/temperature">temperature</option>
+        <option value="home/bath/esp1/humidity">humidity</option>
+      </select>
+	  skip rows:
+  <input type="text" name="r" value = 100><br>
+        <input type="submit" value="Search">
+    </form>
+
+</body>
+</html>
+
+

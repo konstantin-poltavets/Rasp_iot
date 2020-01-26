@@ -1,0 +1,48 @@
+{% extends 'iot/base.html' %}
+
+{% block content %}
+
+
+
+
+
+        <h3>Boards Edit:</h3>
+    <div class="row" Width 500%>
+<div class="col-*-*">
+          {% if messages %}
+  <ul class="messages" >
+    {% for message in messages %}
+      <li class="{{ message.tags }}"><h4 style="color:red;">{{ message }}</h4></li>
+    {% endfor %}
+  </ul>
+{% endif %}
+{% load staticfiles %}
+
+
+<form method="POST" enctype="multipart/form-data" action="">{% csrf_token %}
+
+
+        {{ form.as_p }}
+
+    {% if form.photos %}
+<img src="{{ form.instance.photos.url }}" width="300" height="300" alt="/media/modules/IMG_20190605_215112.jpg" />
+    {% endif %}
+
+    </div>
+
+   <div class="col-*-*" Width 100%>
+               {% if form.scetch %}
+<br> Macros: <br>
+       <iframe src="{{ form.instance.scetch.url }}" width="400%" height="900"> </iframe>
+    {% endif %}
+</div>
+
+  </div>
+
+<button type="submit" class="btn btn-outline-success my-2 my-sm-0">Save</button>
+ </form>
+
+
+
+
+{% endblock %}

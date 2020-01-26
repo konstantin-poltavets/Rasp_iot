@@ -1,0 +1,33 @@
+{% extends 'iot/base.html' %}
+
+{% block content %}
+
+{% load staticfiles %}
+
+        <h3>Edit Module {{ form.name.instance }}  :</h3>
+
+
+<form method="POST" enctype="multipart/form-data" action="">{% csrf_token %}
+
+
+
+<div class="container">
+  <div class="row">
+    <div class="col align-self-start">
+       {{ form.as_p}}
+    </div>
+    <div class="col align-self-start">
+        {% if form.photos %}
+<img src="{{ form.instance.photos.url }}" width="300" height="300" alt="/media/modules/IMG_20190605_215112.jpg" />
+    {% endif %}
+    </div>
+
+  </div>
+</div>
+
+
+
+<button type="submit" class="btn btn-outline-success my-2 my-sm-0">Save</button>
+ </form>
+
+{% endblock %}

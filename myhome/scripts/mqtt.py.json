@@ -1,0 +1,47 @@
+import sqlite3
+from datetime import date, datetime
+import paho.mqtt.client as mqtt
+import time
+import json
+
+def on_message_msgs(mosq, obj, msg):
+    print("MESSAGES: " + msg.topic + " " + str(msg.qos) + " " + str(msg.payload))
+    pload = json.loads(msg.payload)
+    conn = sqlite3.connect("/home/pi/iot/myhome/db.sqlite3") 
+    cursor = conn.cursor()
+    today = datetime.today()
+    cursor.execute('''INSERT INTO myhome_1_mqtt(topic, payload, created_date) VALUES (?,?,?)''', ('temperature', float(pload['temp']), today,))
+    cursor.execute('''INSERT INTO myhome_1_mqtt(topic, payload, created_date) VALUES (?,?,?)''', ('humidity', float(pload['hum']), today,))
+    conn.commit()
+    conn.close
+#    time.sleep(60)
+
+def on_message_bytes(mosq, obj, msg):
+    print("BYTES" + msg.topic + " " + str(msg.qos) + " " + str(float(msg.payload)))
+    conn = sqlite3.connect("/home/pi/iot/myhome/db.sqlite3") 
+    cursor = conn.cursor()
+    today = datetime.today()
+    cursor.execute('''INSERT INTO myhome_1_mqtt(topic, payload, created_date) VALUES (?,?,?)''', (msg.topic, float(msg.payload), today,))
+    conn.commit()
+    conn.close
+
+
+def on_message(mosq, obj, msg):
+    print("-->>" + msg.topic + " " + str(msg.qos) + " " + str(float(msg.payload)))
+    conn = sqlite3.connect("/home/pi/iot/myhome/db.sqlite3") 
+    cursor = conn.cursor()
+    today = datetime.today()
+    cursor.execute('''INSERT INTO myhome_1_mqtt(topic, payload, created_date) VALUES (?,?,?)''', (msg.topic, float(msg.payload), today,))
+    conn.commit()
+    conn.close
+
+mqttc = mqtt.Client()
+
+# Add message callbacks that will only trigger on a specific subscription match.
+mqttc.message_callback_add("esp/#", on_message_msgs)
+#mqttc.message_callback_add("home/bath/esp1/temperature", on_message_bytes)
+#mqttc.on_message = on_message
+mqttc.connect("kotok.asuscomm.com", 1883, 60)
+mqttc.subscribe("esp/#", 0)
+
+mqttc.loop_forever()

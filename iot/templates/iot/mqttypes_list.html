@@ -1,0 +1,40 @@
+{% extends 'iot/base.html' %}
+
+<div class="row">
+    <div class="col-xs-12">
+
+{% block content %}
+<h3>MQTT Types:</h3>
+
+{% load staticfiles %}
+
+<form>{% csrf_token %}
+    <table class="table table-hover"  width="100%">
+        <tr><th>id</th> <th>type</th><th>topic</th></tr>
+
+    {% for Mqttypes in object_list %}
+
+        <tr>   <td> {{ Mqttypes.id }} </td> <td> {{ Mqttypes.type }} </td> <td> {{ Mqttypes.topic }} </td> </tr>
+
+       {% endfor %}
+
+    </table>
+
+<h3>MQTT messages:</h3>
+
+    <table class="table table-hover"  width="100%">
+        <tr><th>created_date</th> <th>topic</th><th>payload</th></tr>
+
+    {% for Mqtt in object_list %}
+
+        <tr>   <td> {{ Mqtt.created_date }} </td> <td> {{ Mqtt.topic }} </td> <td> {{ Mqtt.payload }} </td> </tr>
+
+       {% endfor %}
+
+    </table>
+
+
+ </form>
+
+{% endblock %}
+

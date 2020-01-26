@@ -1,0 +1,18 @@
+{% extends 'iot/base.html' %}
+
+{% block content %}
+        <p>Modules Add:</p>
+
+
+
+
+<form method="POST" enctype="multipart/form-data" action="">{% csrf_token %}
+
+
+    {{ form.as_ul}}
+
+        <button type="submit"  class="btn btn-outline-success my-2 my-sm-0" >Save</button>
+    </form>
+
+{% endblock %}
+

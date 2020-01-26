@@ -1,0 +1,58 @@
+<html>
+<head>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script src="https://www.google.com/jsapi"></script>
+
+<script>
+// 3. This function fires when Google Charts has been fully loaded
+function drawChart() {
+
+  // 4. Retrieve the raw JSON data
+  var jsonData = $.ajax({
+    url: 'http://kotok.asuscomm.com:8020/api-mqtt/mqtt/?format=json&topic=home/bath/esp1/temperature',
+    dataType: 'json',
+  }).done(function (results) {
+
+    // 5. Create a new DataTable (Charts expects data in this format)
+    var data = new google.visualization.DataTable();
+
+    // 6. Add two columns to the DataTable
+    data.addColumn('datetime', 'Time');
+    data.addColumn('number',   'Temp');
+
+    // 7. Cycle through the records, adding one row per record
+    results.forEach(function(packet) {
+      data.addRow([
+          (new Date(packet.created_date)),
+          parseFloat(packet.payload),
+        ]);
+    });
+
+    // 8. Create a new line chart
+    var chart = new google.visualization.LineChart($('#chart').get(0));
+
+    // 9. Render the chart, passing in our DataTable and any config data
+    chart.draw(data, {
+      title:  'Temperature and Humidity',
+      height: 150
+    });
+
+  });
+
+}
+
+// 1. Start loading Google Charts
+google.load('visualization', '1', {
+  packages: ['corechart']
+});
+
+// 2. Set a callback function to fire when loading is complete
+google.setOnLoadCallback(drawChart);
+
+
+    </script>
+  </head>
+  <body>
+<div id="chart" style="width: 100%"></div>
+  </body>
+</html>

@@ -1,0 +1,23 @@
+{% extends "index_1.html" %}
+
+
+{% block content %}
+<br><hr><br>
+<p>You searched for: <strong>{{ query }}</strong></p> 
+<p>Shown one row from each: <strong>{{ skipped_rows }} rows </strong></p>
+
+{% if mqtt %}
+    <p>Found {{ mqtt|length }}.</p>
+
+	<hr><br>
+    <ul>
+        {% for mqtt_1 in mqtt %}
+        <li>|{{ mqtt_1.created_date }}|{{ mqtt_1.payload }}|</li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p>No mqtt matched your search criteria.</p>
+{% endif %}
+
+{% endblock %}
+
