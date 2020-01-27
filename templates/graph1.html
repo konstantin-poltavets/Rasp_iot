@@ -9,7 +9,7 @@ function drawChart() {
 
   // 4. Retrieve the raw JSON data
   var jsonData = $.ajax({
-   url: 'http://kotok.asuscomm.com:8020/api-mqtt/mqtt/?format=json&topic=temperature',
+   url: 'http://127.0.0.1:8000/api-mqtt/mqtt/?format=json&topic=home/poliv/temp',
    dataType: 'json',
   }).done(function (results) {
 
