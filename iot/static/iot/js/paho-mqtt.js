@@ -1728,7 +1728,7 @@ var PahoMQTT = (function (global) {
 	 *                                            in the event that the connection to the server is lost.
 	 * @property {number} disconnectedBufferSize - Used to set the maximum number of messages that the disconnected
 	 *                                             buffer will hold before rejecting new messages. Default size: 5000 messages
-	 * @property {function} trace - called whenever trace is called. TODO
+	 * @property {function} trace - called whenever trace is called.
 	 */
 	var Client = function (host, port, path, clientId) {
 
