@@ -43,10 +43,18 @@ class mqttViewSet(viewsets.ModelViewSet):
 
 
 def graph_1(request):
-    return render(request, 'graph1.html')
+    print(request.GET.get("ip_address"))
+    data = {"weather_data": 20}
+    return JsonResponse(data)
+
+
 
 def publish_1(request):
     return render(request, 'publish.html')
+
+
+
+
 
 def select(request):
     queryset = mqtt.objects.all().filter(topic = "temperature")[::0]
@@ -102,5 +110,6 @@ def view_func(request):
     return render(request, "line_chart.html", {"my_data_temp": queryset_temp, "my_data_hum": queryset_hum})
 
 
-
+def google_graphs(request):
+    return render_to_response('graph1.html')
 

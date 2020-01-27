@@ -13,6 +13,8 @@ urlpatterns = [
     path('publish/', views.publish, name = 'publish'),
     path('publish_1/', views.publish_1, name = 'publish_1'),
     path('template/', views.view_func, name = 'template'),
+    path('google_graphs/', views.publish_1, name = 'google_graphs'),
+
 
 
 ]
