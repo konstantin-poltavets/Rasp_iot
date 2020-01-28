@@ -1,5 +1,10 @@
-<html>
-<head>
+{% extends "index_1.html" %}
+{% block content %}
+   {% load static %}
+
+
+
+
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 <script src="https://www.google.com/jsapi"></script>
 
@@ -54,5 +59,7 @@ google.setOnLoadCallback(drawChart);
   </head>
   <body>
 <div id="chart" style="width: 100%"></div>
-  </body>
-</html>
+
+
+
+  {% endblock %}

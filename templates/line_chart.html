@@ -7,7 +7,7 @@
  
         var my_chart_1 = [['Date',  'Humidity','Temperature']];
         
-    {% for my_chart_hum in my_data_hum%}
+    {% for my_chart_hum in my_data_hum %}
 
     var dat = {{my_date}}
         my_chart_1.push([dat, parseFloat({{my_chart_hum.payload}}),20]);
@@ -29,14 +29,13 @@
         chart.draw(data, options);
       }
     </script>
-		<hr><br>
-	<hr><br>
+
     <div  id="curve_chart" ></div>
 
-	  <div class="div-1c" >
+	  <div class="table-hover" >
 	  
 	  <h1>List</h1>
-    <table>
+    <table class="table-hover">
         <tr><th>Date</th><th>Topic</th><th>Payload</th></tr>
         {% for mqtt_1 in my_data_hum %}
         <tr><td>{{ mqtt_1.created_date }}</td><td>{{ mqtt_1.topic }}</td><td>{{ mqtt_1.payload }}</td></tr>
