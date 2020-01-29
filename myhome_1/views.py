@@ -105,3 +105,8 @@ def view_func(request):
 def google_graphs(request):
     return render_to_response('graph1.html')
 
+def google_rest(request):
+    mqtt_data = mqtt.objects.all().filter(topic = "home/poliv/temp")[::100]
+    serialized = mqttSerializer(mqtt_data.topic)
+    print (serialized.data)
+    return render(request, 'google_rest.html', serialized.data)
