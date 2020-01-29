@@ -7,14 +7,18 @@
 
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 <script src="https://www.google.com/jsapi"></script>
-
+<div id="demo"></div>
 <script>
 // 3. This function fires when Google Charts has been fully loaded
+
+document.getElementById("demo").innerHTML = "Page location is " + window.location.hostname;
+
+
 function drawChart() {
 
   // 4. Retrieve the raw JSON data
   var jsonData = $.ajax({
-   url: 'http://127.0.0.1:8000/api-mqtt/mqtt/?format=json&topic=home/poliv/temp',
+   url: '/api-mqtt/mqtt/?format=json&topic=home/poliv/temp',
    dataType: 'json',
   }).done(function (results) {
 
