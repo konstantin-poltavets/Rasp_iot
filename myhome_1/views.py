@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from .serializers import mqttSerializer
 from rest_framework import filters, generics
-from .models import mqtt, Payment
+from .models import mqtt
 from django_filters import rest_framework as filters
 from rest_framework import viewsets
 from rest_framework.filters import SearchFilter, OrderingFilter
@@ -18,6 +18,9 @@ import calendar
 from datetime import datetime
 import datetime
 from .forms import MyForm
+from django.http import HttpResponse, JsonResponse
+from django.views.decorators.csrf import csrf_exempt
+from rest_framework.parsers import JSONParser
 
 
 class mqttList(generics.ListAPIView):
@@ -105,8 +108,13 @@ def view_func(request):
 def google_graphs(request):
     return render_to_response('graph1.html')
 
+@csrf_exempt
 def google_rest(request):
-    mqtt_data = mqtt.objects.all().filter(topic = "home/poliv/temp")[::100]
-    serialized = mqttSerializer(mqtt_data.topic)
-    print (serialized.data)
-    return render(request, 'google_rest.html', serialized.data)
+    """
+    List all code snippets, or create a new snippet.
+    """
+    if request.method == 'GET':
+        mqtt_data = mqtt.objects.all().filter(payload__gte =  29.7).filter(topic = "home/poliv/temp")
+        serializer = mqttSerializer(mqtt_data, many=True)
+        #return JsonResponse(serializer.data, safe=False)
+        return render_to_response('test2020.html', serializer.data)
