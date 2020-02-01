@@ -14,7 +14,7 @@ urlpatterns = [
     path('google_graphs/', views.publish_1, name = 'google_graphs'),
     path('google_rest_int/', views.google_rest_int, name = 'google_rest_int'),
     path('google_rest/', views.google_rest, name = 'google_rest'),
-
+    path('gaz_list/', views.gazListView.as_view(), name='gaz_list'),
 
 ]
 

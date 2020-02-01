@@ -1,7 +1,8 @@
 from django.shortcuts import render, redirect
+from django.views import generic
 from .serializers import mqttSerializer
 from rest_framework import filters, generics
-from .models import mqtt
+from .models import mqtt, gaz
 from django_filters import rest_framework as filters
 from rest_framework import viewsets
 from rest_framework.filters import SearchFilter, OrderingFilter
@@ -42,7 +43,10 @@ class mqttViewSet(viewsets.ModelViewSet):
     filter_fields = __basic_fields
     search_fields = __basic_fields
 
-
+class gazListView(generic.ListView):
+    """Generic class-based list view for a list of authors."""
+    model = gaz
+    paginate_by = 3
 
 
 def graph_1(request):
