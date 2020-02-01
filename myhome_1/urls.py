@@ -15,6 +15,7 @@ urlpatterns = [
     path('google_rest_int/', views.google_rest_int, name = 'google_rest_int'),
     path('google_rest/', views.google_rest, name = 'google_rest'),
     path('gaz_list/', views.gazListView.as_view(), name='gaz_list'),
-
+    path('gaz_detail/<int:pk>/', views.gazDetailView.as_view(), name='gaz_detail'),
+    path('gaz_add/', views.gaz_add, name='gaz_add'),
 ]
 

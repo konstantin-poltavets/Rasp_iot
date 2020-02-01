@@ -6,22 +6,13 @@ from .models import mqtt, gaz
 from django_filters import rest_framework as filters
 from rest_framework import viewsets
 from rest_framework.filters import SearchFilter, OrderingFilter
-from django.db.models import Q
 from django.shortcuts import render_to_response
-from django.http import HttpResponse
-from django.http import HttpResponseRedirect
 from qsstats import QuerySetStats
 from datetime import date
-from dateutil.relativedelta import relativedelta
 from django.db.models import Sum, Avg, Count
-from django.template import RequestContext
-import calendar
-from datetime import datetime
-import datetime
-from .forms import MyForm
+from .forms import MyForm, gazForm
 from django.http import HttpResponse, JsonResponse
-from django.views.decorators.csrf import csrf_exempt
-from rest_framework.parsers import JSONParser
+
 
 
 class mqttList(generics.ListAPIView):
@@ -46,7 +37,7 @@ class mqttViewSet(viewsets.ModelViewSet):
 class gazListView(generic.ListView):
     """Generic class-based list view for a list of authors."""
     model = gaz
-    paginate_by = 3
+   # paginate_by = 3
 
 
 def graph_1(request):
@@ -128,3 +119,18 @@ def google_rest(request):
 
 
 
+class gazDetailView(generic.DetailView):
+    """Generic class-based list view for a list of authors."""
+    model = gaz
+
+def gaz_add(request):
+    if request.method == "POST":
+        form = gazForm(request.POST, request.FILES)
+        if form.is_valid():
+            boards = form.save(commit=False)
+            #modules.name = form['name'].value()
+            boards.save()
+            return redirect('myhome_1/gaz_detail', pk=boards.pk)
+    else:
+        form = gazForm()
+    return render(request, 'myhome_1/gaz_add.html', {'form': form})

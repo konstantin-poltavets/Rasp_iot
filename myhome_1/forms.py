@@ -60,4 +60,4 @@ class gazForm(forms.ModelForm):
     class Meta:
 
         model = gaz
-        fields = ['id', 'fuel_type', 'liters', 'price']
+        fields = ['id', 'fuel_type', 'liters', 'price', 'created_date']

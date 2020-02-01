@@ -43,15 +43,28 @@
                         <a class="dropdown-item" href="#">Edit module</a>
                     </div>
                 </li>
+
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Boards
+                        Modules
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="{% url 'boards_list' %}">List boards</a>
-                        <a class="dropdown-item" href="{% url 'boards_add' %}">Add board</a>
+                        <a class="dropdown-item" href="{% url 'modules_list_view' %}">List modules</a>
+                        <a class="dropdown-item" href="{% url 'modules_add' %}">Add module</a>
                         <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="#">Edit board</a>
+                        <a class="dropdown-item" href="#">Edit module</a>
+                    </div>
+                </li>
+
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Car
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="{% url 'gaz_list' %}">Gaz list</a>
+                        <a class="dropdown-item" href="{% url 'gaz_add' %}">Add fuel</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="#">G board</a>
                     </div>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
