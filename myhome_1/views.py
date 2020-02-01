@@ -108,13 +108,16 @@ def view_func(request):
 def google_graphs(request):
     return render_to_response('graph1.html')
 
-@csrf_exempt
-def google_rest(request):
+#@csrf_exempt
+def google_rest_int(request):
     """
     List all code snippets, or create a new snippet.
     """
     if request.method == 'GET':
-        mqtt_data = mqtt.objects.all().filter(payload__gte =  29.7).filter(topic = "home/poliv/temp")
+        mqtt_data = mqtt.objects.all().filter(payload__lte =  22.5).filter(topic = "home/poliv/temp")
         serializer = mqttSerializer(mqtt_data, many=True)
-        #return JsonResponse(serializer.data, safe=False)
-        return render_to_response('test2020.html', serializer.data)
+        return JsonResponse(serializer.data, safe=False)
+
+
+def google_rest(request):
+        return render_to_response('test2020.html')

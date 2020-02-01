@@ -12,8 +12,8 @@ urlpatterns = [
     path('publish_1/', views.publish_1, name = 'publish_1'),
     path('template/', views.view_func, name = 'template'), # TODO
     path('google_graphs/', views.publish_1, name = 'google_graphs'),
+    path('google_rest_int/', views.google_rest_int, name = 'google_rest_int'),
     path('google_rest/', views.google_rest, name = 'google_rest'),
-
 
 
 ]

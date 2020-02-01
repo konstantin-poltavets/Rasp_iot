@@ -1,0 +1,16 @@
+  <html>
+                <head>
+                </head>
+                <body>
+                    <button id="mybtn">12345</button>
+                </body>
+            </html>
+            <script>
+            document.body.onclick = function (e) {
+                e = e || event;
+                target = e.target || e.srcElement;
+                if ((target.id == "mybtn")){
+                    alert(1);
+                }
+            }
+            </script>
