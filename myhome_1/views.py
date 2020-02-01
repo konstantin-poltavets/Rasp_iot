@@ -125,3 +125,6 @@ def google_rest_int(request):
 
 def google_rest(request):
         return render_to_response('test2020.html')
+
+
+
