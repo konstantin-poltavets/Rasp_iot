@@ -50,4 +50,18 @@ class gaz(models.Model):
     objects = models.Manager()  # Стандартный менеджер
 
     def __str__(self):
-        return (self.fuel_type)
+        return (self.station_type)
+
+
+
+class CalcManager1(models.Manager): # Наш менеджер, который нам дает возможность менять поведение модели
+    def get_query_set(self):
+        result=super(CalcManager1, self).get_query_set().extra(select={'total': "first+second"})
+        #то место где надо задавать алгоритм по которому вычисляется поле total
+        return result
+
+class Calc(models.Model):
+    first = models.IntegerField(null=True)
+    second = models.IntegerField(null=True)
+    total = CalcManager1() # Созданный нами менеджер
+    objects = models.Manager() # Стандартный менеджер

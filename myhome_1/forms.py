@@ -61,3 +61,11 @@ class gazForm(forms.ModelForm):
 
         model = gaz
         fields = ['created_date', 'millage', 'station_type','id', 'fuel_type', 'liters', 'price' ]
+
+
+class CalcForm(forms.ModelForm):
+
+    class Meta:
+
+        model = gaz
+        fields = ['first', 'second', 'total' ]

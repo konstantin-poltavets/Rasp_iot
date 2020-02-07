@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.views import generic
 from .serializers import mqttSerializer
 from rest_framework import filters, generics
-from .models import mqtt, gaz
+from .models import mqtt, gaz, Calc
 from django_filters import rest_framework as filters
 from rest_framework import viewsets
 from rest_framework.filters import SearchFilter, OrderingFilter
@@ -38,6 +38,13 @@ class gazListView(generic.ListView):
     """Generic class-based list view for a list of authors."""
     model = gaz
    # paginate_by = 3
+
+class CalcListView(generic.ListView):
+    """Generic class-based list view for a list of authors."""
+    model = Calc
+
+
+# paginate_by = 3
 
 
 def graph_1(request):
@@ -119,10 +126,6 @@ def google_rest(request):
 
 
 
-class gazDetailView(generic.DetailView):
-    """Generic class-based list view for a list of authors."""
-    model = gaz
-
 def gaz_add(request):
     if request.method == "POST":
         form = gazForm(request.POST, request.FILES)
@@ -134,3 +137,5 @@ def gaz_add(request):
     else:
         form = gazForm()
     return render(request, 'myhome_1/gaz_add.html', {'form': form})
+
+
