@@ -10,7 +10,7 @@ from django.shortcuts import render_to_response
 from qsstats import QuerySetStats
 from datetime import date
 from django.db.models import Sum, Avg, Count
-from .forms import MyForm, gazForm
+from .forms import MyForm, gazForm, CalcManager
 from django.http import HttpResponse, JsonResponse
 
 

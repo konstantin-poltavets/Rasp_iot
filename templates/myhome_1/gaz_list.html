@@ -10,11 +10,11 @@
 
 <form>{% csrf_token %}
     <table class="table table-hover"  width="100%">
-        <tr><th>Дата</th> <th>Тип</th><th>Цена</th><th>Литров</th></tr>
+        <tr><th>Дата</th> <th>Тип</th><th>Заправка</th><th>Цена</th><th>Литров</th><th>За литр</th></tr>
 
     {% for gaz in object_list %}
 
-        <tr>   <td> {{ gaz.created_date }} </td> <td> {{ gaz.fuel_type }} </td> <td> {{ gaz.price }} </td><td> {{ gaz.liters }} </td> </tr>
+        <tr>   <td> {{ gaz.created_date }} </td> <td> {{ gaz.fuel_type }} </td><td> {{ gaz.station_type }} </td> <td> {{ gaz.price }} </td><td> {{ gaz.liters }} </td> <td>  </td></tr>
 
        {% endfor %}
 

@@ -1,8 +1,8 @@
-{% extends 'iot/base.html' %}
+{% extends 'index_1.html' %}
 
 {% block content %}
 
-
+{% load crispy_forms_tags %}
 
 
 
@@ -22,7 +22,7 @@
 <form method="POST" enctype="multipart/form-data" action="">{% csrf_token %}
 
 
-        {{ form.as_p }}
+        {{ form|crispy }}
 
     {% if form.photos %}
 <img src="{{ form.instance.photos.url }}" width="300" height="300" alt="/media/modules/IMG_20190605_215112.jpg" />

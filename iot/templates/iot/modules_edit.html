@@ -3,6 +3,7 @@
 {% block content %}
 
 {% load staticfiles %}
+{% load crispy_forms_tags %}
 
         <h3>Edit Module {{ form.name.instance }}  :</h3>
 
@@ -14,7 +15,7 @@
 <div class="container">
   <div class="row">
     <div class="col align-self-start">
-       {{ form.as_p}}
+       {{ form|crispy}}
     </div>
     <div class="col align-self-start">
         {% if form.photos %}

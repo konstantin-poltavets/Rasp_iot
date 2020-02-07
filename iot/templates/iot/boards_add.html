@@ -3,13 +3,13 @@
 {% block content %}
         <p>Boards Add:</p>
 
-
+{% load crispy_forms_tags %}
 
 
 <form method="POST" enctype="multipart/form-data" action="">{% csrf_token %}
 
 
-    {{ form.as_ul}}
+    {{ form|crispy}}
 
         <button type="submit"  class="btn btn-outline-success my-2 my-sm-0" >Save</button>
     </form>
