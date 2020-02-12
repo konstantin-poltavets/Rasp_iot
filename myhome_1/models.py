@@ -44,13 +44,14 @@ class gaz(models.Model):
     STATION_TYPES_CHOICES = ((BRSM, 'BRSM'), (KLO, 'KLO'), (LPG, 'LPG'), (WOG, 'WOG'),)
     station_type = models.CharField(max_length=6, blank=True, choices=STATION_TYPES_CHOICES, default=BRSM)
 
+    @property
+    def cost(self):
+        price_liter = self.price/self.liters
+        return price_liter
 
-    price_liter = CalcManager()
 
-    objects = models.Manager()  # Стандартный менеджер
-
-    def __str__(self):
-        return (self.station_type)
+    def __float__(self):
+        return (self.price)
 
 
 
@@ -65,3 +66,4 @@ class Calc(models.Model):
     second = models.IntegerField(null=True)
     total = CalcManager1() # Созданный нами менеджер
     objects = models.Manager() # Стандартный менеджер
+

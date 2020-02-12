@@ -17,5 +17,6 @@ urlpatterns = [
     path('gaz_list/', views.gazListView.as_view(), name='gaz_list'),
     path('gaz_detail/<int:pk>/', views.gazDetailView.as_view(), name='gaz_detail'),
     path('gaz_add/', views.gaz_add, name='gaz_add'),
+    path('gaz_template/', views.gaz_template, name='gaz_template'),
 ]
 

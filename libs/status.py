@@ -2,8 +2,8 @@ import psutil
 import json
 import datetime
 
-def cpu_temperature():
-    return psutil.sensors_temperatures()['cpu-thermal'][0].current
+#def cpu_temperature():
+ #   return psutil.sensors_temperatures()['cpu-thermal'][0].current
 
 def disk_space():
     st = psutil.disk_usage(".")
@@ -20,9 +20,10 @@ def uptime():
 
 
 def status_all(): 
-    health = {'Uptime': uptime(),'CPUTemp': cpu_temperature(), 'CPULoad': cpu_load(), "DiskFree": disk_space()[0], "DiskTotal": disk_space()[1], "RAMUse": ram_usage()}
+    health = {'Uptime': uptime(), 'CPULoad': cpu_load(), "DiskFree": disk_space()[0], "DiskTotal": disk_space()[1], "RAMUse": ram_usage()}
     print(health) 
     return health
 
 if __name__ == '__main__':
     status_all()
+ #'CPUTemp': cpu_temperature(),

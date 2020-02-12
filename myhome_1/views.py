@@ -10,7 +10,7 @@ from django.shortcuts import render_to_response
 from qsstats import QuerySetStats
 from datetime import date
 from django.db.models import Sum, Avg, Count
-from .forms import MyForm, gazForm, CalcManager
+from .forms import MyForm, gazForm
 from django.http import HttpResponse, JsonResponse
 
 
@@ -37,14 +37,8 @@ class mqttViewSet(viewsets.ModelViewSet):
 class gazListView(generic.ListView):
     """Generic class-based list view for a list of authors."""
     model = gaz
+    fields = '__all__'
    # paginate_by = 3
-
-class CalcListView(generic.ListView):
-    """Generic class-based list view for a list of authors."""
-    model = Calc
-
-
-# paginate_by = 3
 
 
 def graph_1(request):
@@ -126,6 +120,10 @@ def google_rest(request):
 
 
 
+class gazDetailView(generic.DetailView):
+    """Generic class-based list view for a list of authors."""
+    model = gaz
+
 def gaz_add(request):
     if request.method == "POST":
         form = gazForm(request.POST, request.FILES)
@@ -139,3 +137,10 @@ def gaz_add(request):
     return render(request, 'myhome_1/gaz_add.html', {'form': form})
 
 
+
+def gaz_template(request):
+
+    query = gaz.objects.all()
+    price_liter = gaz.cost
+
+    return render(request, 'template_gaz.html', {'values': query, 'price_liter':price_liter})
