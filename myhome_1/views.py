@@ -2,16 +2,16 @@ from django.shortcuts import render, redirect
 from django.views import generic
 from .serializers import mqttSerializer
 from rest_framework import filters, generics
-from .models import mqtt, gaz, Calc
+from .models import mqtt, gaz, Calc, CalcManager1
 from django_filters import rest_framework as filters
 from rest_framework import viewsets
 from rest_framework.filters import SearchFilter, OrderingFilter
 from django.shortcuts import render_to_response
 from qsstats import QuerySetStats
 from datetime import date
-from django.db.models import Sum, Avg, Count
 from .forms import MyForm, gazForm
 from django.http import HttpResponse, JsonResponse
+from django.db.models import F, Count, Value
 
 
 
@@ -140,7 +140,7 @@ def gaz_add(request):
 
 def gaz_template(request):
 
-    query = gaz.objects.all()
-    price_liter = gaz.cost
+    query = Calc.objects.all()
+    q2 = CalcManager1(Calc.total).all()
 
-    return render(request, 'template_gaz.html', {'values': query, 'price_liter':price_liter})
+    return render(request, 'template_gaz.html', {'values':query}, {'values2':q2},)

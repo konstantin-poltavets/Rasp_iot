@@ -8,8 +8,10 @@
 
     <table>
         <tr><th>Date</th><th>Liters</th><th>Price</th></tr>
-        {% for i in values %}
-            <tr><td> {{ i.created_date }} </td><td>{{ i.liters }}</td><td>{{ i.price }}</td><td>{% if value %}value="{{ i.liters }}"{% endif %}</td></tr>
+        {% for i in values2 %}
+            <tr><td> {{ i }} </td>
+                <td> {{ i.second }}</td>
+            </tr>
 
         {% endfor %}
     </table>

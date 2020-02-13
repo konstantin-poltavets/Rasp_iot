@@ -46,7 +46,7 @@ class gaz(models.Model):
 
     @property
     def cost(self):
-        price_liter = self.price/self.liters
+        price_liter = self.price / self.liters
         return price_liter
 
 
