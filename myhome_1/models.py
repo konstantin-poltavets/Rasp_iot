@@ -18,10 +18,6 @@ class Payment(models.Model):
     amount = models.DecimalField(max_digits=11, decimal_places=4)
     datetime = models.DateTimeField()
 
-class CalcManager(models.Manager): # Наш менеджер, который нам дает возможность менять поведение модели
-    def get_query_set(self):
-        result=super(CalcManager, self).get_query_set().extra(select={'price_liter': "price/liters"})
-        return result
 
 
 class gaz(models.Model):
@@ -32,9 +28,9 @@ class gaz(models.Model):
     LPG = 'LPG'
     GAZ_TYPES_CHOICES = ((GAZ_95, 'Gaz_95'), (GAZ_98, 'Gaz_98'), (LPG, 'LPG'),)
 
-    fuel_type = models.CharField(max_length=6, blank=False,choices=GAZ_TYPES_CHOICES, default=LPG)
-    liters = models.DecimalField(max_digits=5, decimal_places=2)
-    price = models.DecimalField(max_digits=5, decimal_places=2)
+    fuel_type = models.CharField(max_length=7, blank=False,choices=GAZ_TYPES_CHOICES, default=LPG)
+    liters = models.DecimalField(max_digits=7, decimal_places=2)
+    price = models.DecimalField(max_digits=7, decimal_places=2)
     millage = models.PositiveIntegerField(blank=False, default=100000)
 
     BRSM = 'BRSM'
@@ -52,18 +48,4 @@ class gaz(models.Model):
 
     def __float__(self):
         return (self.price)
-
-
-
-class CalcManager1(models.Manager): # Наш менеджер, который нам дает возможность менять поведение модели
-    def get_query_set(self):
-        result=super(CalcManager1, self).get_query_set().extra(select={'total': "first+second"})
-        #то место где надо задавать алгоритм по которому вычисляется поле total
-        return result
-
-class Calc(models.Model):
-    first = models.IntegerField(null=True)
-    second = models.IntegerField(null=True)
-    total = CalcManager1() # Созданный нами менеджер
-    objects = models.Manager() # Стандартный менеджер
 

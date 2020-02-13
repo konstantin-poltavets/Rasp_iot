@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.views import generic
 from .serializers import mqttSerializer
 from rest_framework import filters, generics
-from .models import mqtt, gaz, Calc, CalcManager1
+from .models import mqtt, gaz
 from django_filters import rest_framework as filters
 from rest_framework import viewsets
 from rest_framework.filters import SearchFilter, OrderingFilter
@@ -140,7 +140,7 @@ def gaz_add(request):
 
 def gaz_template(request):
 
-    query = Calc.objects.all()
-    q2 = CalcManager1(Calc.total).all()
+    query = gaz.objects.all()
+    #q2 = query.cost
 
-    return render(request, 'template_gaz.html', {'values':query}, {'values2':q2},)
+    return render(request, 'template_gaz.html', {'values':query})

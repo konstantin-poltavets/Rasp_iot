@@ -1,7 +1,7 @@
 from django import forms
 import datetime
 from tempus_dominus.widgets import DatePicker, TimePicker, DateTimePicker
-from .models import gaz, CalcManager, Calc
+from .models import gaz
 
 
 class DateForm(forms.Form):
@@ -61,8 +61,3 @@ class gazForm(forms.ModelForm):
         fields = ['created_date', 'millage', 'station_type','id', 'fuel_type', 'liters', 'price']
 
 
-class CalcForm(forms.ModelForm):
-    class Meta:
-        model = Calc
-
-        fields = ['first', 'second']
