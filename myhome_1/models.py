@@ -20,31 +20,37 @@ class Payment(models.Model):
 
 
 
-class gaz(models.Model):
+class gazoline(models.Model):
     created_date = models.DateField(default=timezone.now)
 
-    GAZ_95 = 'GAZ_95'
-    GAZ_98 = 'GAZ_98'
+    Benzine = 'B'
     LPG = 'LPG'
-    GAZ_TYPES_CHOICES = ((GAZ_95, 'Gaz_95'), (GAZ_98, 'Gaz_98'), (LPG, 'LPG'),)
-
+    GAZ_TYPES_CHOICES = ((Benzine, 'B'), (LPG, 'LPG'),)
     fuel_type = models.CharField(max_length=7, blank=False,choices=GAZ_TYPES_CHOICES, default=LPG)
+
     liters = models.DecimalField(max_digits=7, decimal_places=2)
-    price = models.DecimalField(max_digits=7, decimal_places=2)
-    millage = models.PositiveIntegerField(blank=False, default=100000)
+    price_liter = models.DecimalField(max_digits=7, decimal_places=2)
+    price_after_disc = models.DecimalField(max_digits=7, decimal_places=2)
+    millage = models.PositiveIntegerField(blank=False, default=120000)
 
     BRSM = 'BRSM'
     KLO = 'KLO'
     LPG = 'LPG'
     WOG = 'WOG'
-    STATION_TYPES_CHOICES = ((BRSM, 'BRSM'), (KLO, 'KLO'), (LPG, 'LPG'), (WOG, 'WOG'),)
-    station_type = models.CharField(max_length=6, blank=True, choices=STATION_TYPES_CHOICES, default=BRSM)
+    Other = 'Other'
+    STATION_TYPES_CHOICES = ((BRSM, 'BRSM'), (KLO, 'KLO'), (LPG, 'LPG'), (WOG, 'WOG'), (Other, 'Other'))
+    station = models.CharField(max_length=6, blank=True, choices=STATION_TYPES_CHOICES, default=BRSM)
 
     @property
-    def cost(self):
-        price_liter = self.price / self.liters
-        return price_liter
+    def price_before_disc(self):
+        return self.price_liter * self.liters
 
+    @property
+    def disc(self):
+        return self.price_liter * self.liters - self.price_after_disc
+
+    class Meta:
+        ordering = ["-created_date"]
 
     def __float__(self):
         return (self.price)

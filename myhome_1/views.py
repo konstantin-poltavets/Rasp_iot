@@ -1,8 +1,8 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.views import generic
 from .serializers import mqttSerializer
 from rest_framework import filters, generics
-from .models import mqtt, gaz
+from .models import mqtt, gazoline
 from django_filters import rest_framework as filters
 from rest_framework import viewsets
 from rest_framework.filters import SearchFilter, OrderingFilter
@@ -36,7 +36,7 @@ class mqttViewSet(viewsets.ModelViewSet):
 
 class gazListView(generic.ListView):
     """Generic class-based list view for a list of authors."""
-    model = gaz
+    model = gazoline
     fields = '__all__'
    # paginate_by = 3
 
@@ -122,7 +122,7 @@ def google_rest(request):
 
 class gazDetailView(generic.DetailView):
     """Generic class-based list view for a list of authors."""
-    model = gaz
+    model = gazoline
 
 def gaz_add(request):
     if request.method == "POST":
@@ -131,16 +131,29 @@ def gaz_add(request):
             boards = form.save(commit=False)
             #modules.name = form['name'].value()
             boards.save()
-            return redirect('myhome_1/gaz_detail', pk=boards.pk)
+            return redirect('myhome_1/gazoline_list.html', pk=boards.pk)
     else:
         form = gazForm()
-    return render(request, 'myhome_1/gaz_add.html', {'form': form})
+    return render(request, 'myhome_1/gazoline_add.html', {'form': form})
 
 
 
 def gaz_template(request):
 
-    query = gaz.objects.all()
+    query = gazoline.objects.all()
     #q2 = query.cost
 
     return render(request, 'template_gaz.html', {'values':query})
+
+
+def gazoline_edit(request, pk):
+    g = get_object_or_404(gazoline, pk=pk)
+    if request.method == "POST":
+        form = gazForm(request.POST,  request.FILES, instance=g)
+        if form.is_valid():
+            form.save()
+            return redirect('gazoline_edit_view', pk=pk)
+    else:
+        form = gazForm(instance=g)
+
+    return render(request, 'myhome_1/gazoline_edit.html', {'form': form})

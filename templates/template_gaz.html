@@ -8,10 +8,16 @@
 
     <table>
         <tr><th>Date</th><th>Liters</th><th>Price</th></tr>
-        {% for i in values %}
-            <tr><td> {{ i.cost }} </td>
-                <td> {{ i.second }}</td>
-            </tr>
+        {% for gaz in values %}
+        <tr>   <td> {{ gaz.created_date }} </td>
+            <td> {{ gaz.fuel_type }} </td>
+            <td> {{ gaz.station }} </td>
+            <td> {{ gaz.price_before_disc |floatformat }} </td>
+            <td> {{ gaz.liters |floatformat}} </td>
+            <td> {{ gaz.price_liter |floatformat}} </td>
+            <td> {{ gaz.disc |floatformat}} </td>
+            <td> {{ gaz.price_after_disc |floatformat}} </td>
+        </tr>
 
         {% endfor %}
     </table>
