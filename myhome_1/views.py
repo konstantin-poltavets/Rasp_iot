@@ -11,7 +11,17 @@ from qsstats import QuerySetStats
 from datetime import date
 from .forms import MyForm, gazForm
 from django.http import HttpResponse, JsonResponse
-from django.db.models import F, Count, Value
+from django.db.models import F, Count, Value, Avg, Sum
+from django.views.generic.edit import DeleteView
+from django.urls import reverse_lazy
+from django.db.models.functions import Extract
+from random import randint
+from django.views.generic import TemplateView
+from chartjs.views.lines import BaseLineChartView
+
+
+
+
 
 
 
@@ -131,7 +141,7 @@ def gaz_add(request):
             boards = form.save(commit=False)
             #modules.name = form['name'].value()
             boards.save()
-            return redirect('myhome_1/gazoline_list.html', pk=boards.pk)
+            return redirect('gaz_list')
     else:
         form = gazForm()
     return render(request, 'myhome_1/gazoline_add.html', {'form': form})
@@ -139,11 +149,27 @@ def gaz_add(request):
 
 
 def gaz_template(request):
-
+    start_date = date(2012, 1, 1)
+    end_date = date(2016, 12, 31)
     query = gazoline.objects.all()
-    #q2 = query.cost
+    query_Avg = query.aggregate(Avg('price_liter'))["price_liter__avg"]
+    query_Count = query.aggregate(Count('price_liter'))["price_liter__count"]
+    query_Sum = query.aggregate(Sum('price_after_disc'))["price_after_disc__sum"]
 
-    return render(request, 'template_gaz.html', {'values':query})
+
+    qsstats = QuerySetStats(query, date_field='created_date')
+    values_dat = qsstats.time_series(start_date, end_date, interval='years', aggregate=Sum('price_after_disc'))
+    #summary = qsstats.time_series(start_date, end_date, aggregate=Count('payload'))
+    values_a = [t[1] for t in values_dat]
+    captions_a = [t[0].year for t in values_dat]
+
+    return render(request, 'template_gaz.html', {'values':query ,
+                                                 'query_Avg':query_Avg ,
+                                                 'query_Count':query_Count,
+                                                 'query_Sum':query_Sum,
+                                                  'values_dat':values_dat,
+                                                 'values_a':values_a,
+                                                 'captions_a':captions_a})
 
 
 def gazoline_edit(request, pk):
@@ -155,5 +181,35 @@ def gazoline_edit(request, pk):
             return redirect('gazoline_edit_view', pk=pk)
     else:
         form = gazForm(instance=g)
-
     return render(request, 'myhome_1/gazoline_edit.html', {'form': form})
+
+
+
+class GazDelete(DeleteView):
+    model = gazoline
+   # template_name = 'item_confirm_delete.html'
+    success_url = reverse_lazy('gaz_list')
+
+
+
+
+
+class LineChartJSONView(BaseLineChartView):
+    def get_labels(self):
+        """Return 7 labels for the x-axis."""
+        return ["January", "February", "March", "April", "May", "June", "July"]
+
+    def get_providers(self):
+        """Return names of datasets."""
+        return ["Central", "Eastside", "Westside"]
+
+    def get_data(self):
+        """Return 3 datasets to plot."""
+
+        return [[75, 44, 92, 11, 44, 95, 35],
+                [41, 92, 18, 3, 73, 87, 92],
+                [87, 21, 94, 3, 90, 13, 65]]
+
+
+line_chart = TemplateView.as_view(template_name='line_chart.html')
+line_chart_json = LineChartJSONView.as_view()

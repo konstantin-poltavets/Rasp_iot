@@ -19,10 +19,17 @@
 
   </div>
 </div>
-
+</div>
 
 
 <button type="submit" class="btn btn-outline-success my-2 my-sm-0">Save</button>
+
+
  </form>
+
+<form action="delete/" method="post">
+    {% csrf_token %}
+    <button class="btn btn-outline-danger my-2 my-sm-0" >Удалить</button>
+</form>
 
 {% endblock %}

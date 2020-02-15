@@ -1,12 +1,30 @@
-<!DOCTYPE html>
-<html>
-<head>
- <meta charset="UTF8" />
-    <title>test</title>
-</head>
-<body class="container">
+{% extends 'index_1.html' %}
 
-    <table>
+{% block content %}
+
+{% load staticfiles %}
+{% load crispy_forms_tags %}
+{% load chart_tags %}
+
+
+    <table class="table table-sm">
+        <tr><th>Statistics:</th><th></th></tr>
+
+        <tr><td> Average </td><td> {{ query_Avg }} </td></tr>
+        <tr><td> Count </td><td> {{ query_Count }} </td></tr>
+        <tr><td> Sum </td><td> {{ query_Sum |floatformat}} </td></tr>
+        </table>
+
+    <table class="table table-sm">
+        <tr><th>Values_dat:</th><th></th></tr>
+        {% for v_d in values_dat %}
+        <tr><td>  </td><td> {{ v_d.month }} </td></tr>
+        <tr><td>  </td><td> {% bar_chart values_a captions_a %} </td></tr>
+    </table>
+        {% endfor %}
+
+<h3>---------------------------------------------------------</h3>
+    <table class="table table-sm">
         <tr><th>Date</th><th>Liters</th><th>Price</th></tr>
         {% for gaz in values %}
         <tr>   <td> {{ gaz.created_date }} </td>
@@ -22,5 +40,4 @@
         {% endfor %}
     </table>
 
-</body>
-</html>
+{% endblock %}

@@ -19,5 +19,6 @@ urlpatterns = [
     path('gaz_add/', views.gaz_add, name='gaz_add'),
     path('gaz_template/', views.gaz_template, name='gaz_template'),
     path('gaz_edit/<int:pk>/', views.gazoline_edit, name='gazoline_edit_view'),
+    path('gaz_edit/<int:pk>/delete/', views.GazDelete.as_view(), name='gaz_del'),
 ]
 

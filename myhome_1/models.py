@@ -1,7 +1,7 @@
 from django.conf import settings
 from django.db import models
 from django.utils import timezone
-
+from django.db.models import Avg, Count, Sum
 
 class mqtt(models.Model):
     topic = models.CharField(max_length=200)
@@ -50,7 +50,7 @@ class gazoline(models.Model):
         return self.price_liter * self.liters - self.price_after_disc
 
     class Meta:
-        ordering = ["-created_date"]
+        ordering = ["-created_date", "-id"]
 
     def __float__(self):
         return (self.price)

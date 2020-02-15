@@ -28,6 +28,8 @@ SECRET_KEY = '#*x!h9!l0mmfxyhon#@q=$#oc=9zl56%m)8+&)ijx$j6hgbcyj'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
+#APPEND_SLASH = False
+
 ALLOWED_HOSTS = ['kotok.asuscomm.com', '192.168.1.141', 'localhost', '127.0.0.1']
 
 
@@ -48,6 +50,9 @@ INSTALLED_APPS = [
     'tempus_dominus',
     'crispy_forms',
     'iot',
+    'django_extensions',
+    'chart_tools',
+    'chartjs',
 ]
 
 MIDDLEWARE = [
