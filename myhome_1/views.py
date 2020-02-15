@@ -149,6 +149,27 @@ def gaz_add(request):
 
 
 def gaz_template(request):
+
+
+
+    years = gazoline.objects.all()
+    #query_Count = query.aggregate(Count('price_liter'))["price_liter__count"]
+    #print(years.values("created_date__year")["created_date__year"])
+    #query_year = years.aggregate(Count("created_date__year")).distinct('created_date__year')
+    query_year = gazoline.objects.only('created_date').dates('created_date', 'year', order =  'DESC')
+    #print(query_year.year)
+    values_year = [t.year for t in query_year]
+    #query = gazoline.objects.all().filter(created_date__year=values_year[0])
+    #query_list = [q_l for q_l in gazoline.objects.all().filter(created_date__year=values_year[values_year]) ]
+    #print(values_year)
+    query_list = [ gazoline.objects.all().filter(created_date__year = k) for k in values_year]
+    print(query_list)
+
+    return render(request, 'template_gaz.html', {'values_year': values_year,
+                                                 'values': query_list })
+
+
+"""""
     start_date = date(2012, 1, 1)
     end_date = date(2016, 12, 31)
     query = gazoline.objects.all()
@@ -162,6 +183,7 @@ def gaz_template(request):
     #summary = qsstats.time_series(start_date, end_date, aggregate=Count('payload'))
     values_a = [t[1] for t in values_dat]
     captions_a = [t[0].year for t in values_dat]
+    
 
     return render(request, 'template_gaz.html', {'values':query ,
                                                  'query_Avg':query_Avg ,
@@ -170,7 +192,7 @@ def gaz_template(request):
                                                   'values_dat':values_dat,
                                                  'values_a':values_a,
                                                  'captions_a':captions_a})
-
+"""""
 
 def gazoline_edit(request, pk):
     g = get_object_or_404(gazoline, pk=pk)
