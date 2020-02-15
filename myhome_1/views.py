@@ -85,7 +85,7 @@ def publish(request):
     if request.method == "POST":
         queryset_temp = mqtt.objects.all().filter(topic = "temperature")[::0]
         queryset_hum = mqtt.objects.all().filter(topic = "humidity")[::0]
-        date=POST['datepicker']
+        date = POST['datepicker']
         return render(request.POST, "line_chart.html", {"my_date": date, "my_data_temp": queryset_temp, "my_data_hum": queryset_hum})
     else:
         form = MyForm()
