@@ -18,7 +18,7 @@ class Payment(models.Model):
     amount = models.DecimalField(max_digits=11, decimal_places=4)
     datetime = models.DateTimeField()
 
-class CalcManager(models.Manager): # Наш менеджер, который нам дает возможность менять поведение модели
+class CalcManager(models.Manager): # 
     def get_query_set(self):
         result=super(CalcManager, self).get_query_set().extra(select={'price_liter': "price/liters"})
         return result
@@ -47,7 +47,7 @@ class gaz(models.Model):
 
     price_liter = CalcManager()
 
-    objects = models.Manager()  # Стандартный менеджер
+    objects = models.Manager()  # 
 
     def __str__(self):
         return (self.fuel_type)
