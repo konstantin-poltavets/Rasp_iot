@@ -8,7 +8,6 @@ from django.conf.urls.static import static
 urlpatterns = [
     path('', views.index, name='index'),
     path('iot/modules-edit/<int:pk>/', views.modules_edit, name='modules_edit'),
-    #url(r'^iot/edit/(?P<pk>\d+)$', views.modules_edit, name='modules_edit'),
     path('iot/modules-add/', views.modules_add, name='modules_add'),
     path('iot/list/', views.modules_list, name='modules_list'),
     path('iot/list-view/', views.ModulesListView.as_view(), name='modules_list_view'),

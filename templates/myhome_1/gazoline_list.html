@@ -1,0 +1,50 @@
+{% extends 'index_1.html' %}
+
+<div class="row">
+    <div class="col-xs-12">
+
+{% block content %}
+<h3>Заправки:</h3>
+
+{% load staticfiles %}
+
+<form>{% csrf_token %}
+    <table class="table table-sm"  width="130%">
+        <tr><th>id </th>
+            <th>Дата </th>
+            <th>Пробег</th>
+            <th>Тип</th>
+            <th>Заправка</th>
+            <th>Цена</th>
+            <th>Литров</th>
+            <th>За литр</th>
+            <th>Скидка</th>
+            <th>Цена после скидки</th>
+        </tr>
+
+    {% for gaz in object_list %}
+
+        <tr>
+            <td> {{ gaz.id }} </td>
+            <td > <a href="http:/api-mqtt/gaz_edit/{{ gaz.id }}" > {{ gaz.created_date }} </td>
+            <td> {{ gaz.millage }} </td>
+            <td> {{ gaz.fuel_type }} </td>
+            <td> {{ gaz.station }} </td>
+            <td> {{ gaz.price_before_disc |floatformat }} </td>
+            <td> {{ gaz.liters |floatformat}} </td>
+            <td> {{ gaz.price_liter |floatformat}} </td>
+            <td> {{ gaz.disc |floatformat}} </td>
+            <td> {{ gaz.price_after_disc |floatformat}} </td>
+        </tr>
+
+       {% endfor %}
+
+    </table>
+
+
+ </form>
+
+{% endblock %}
+
+    </div>
+</div>

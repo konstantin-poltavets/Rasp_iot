@@ -1,0 +1,83 @@
+{% extends 'index_1.html' %}
+
+{% block content %}
+
+{% load staticfiles %}
+{% load crispy_forms_tags %}
+{% load chart_tags %}
+
+
+   <table class="table table-sm">
+        <tr><th>Years:</th><th></th></tr>
+        {% for v_y in values_year %}
+        <tr><td>  {{ v_y }} </td></tr>
+ {% endfor %}
+    </table>
+
+<h3>---------------------------------------------------------</h3>
+    <table class="table table-sm">
+        <tr><th>Date</th><th>Liters</th><th>Price</th></tr>
+        {% for gaz in values %}
+        <tr>   <td> {{ gaz.created_date }} </td>
+            <td> {{ gaz.fuel_type }} </td>
+            <td> {{ gaz.station }} </td>
+            <td> {{ gaz.price_before_disc |floatformat }} </td>
+            <td> {{ gaz.liters |floatformat}} </td>
+            <td> {{ gaz.price_liter |floatformat}} </td>
+            <td> {{ gaz.disc |floatformat}} </td>
+            <td> {{ gaz.price_after_disc |floatformat}} </td>
+        </tr>
+
+        {% endfor %}
+    </table>
+
+
+<table class="table table-sm">
+        <tr><th>Total per year:</th><th></th></tr>
+        <tr><td>  </td><td> {% bar_chart values_a captions_a %} </td></tr>
+    </table>
+
+
+<table class="table table-sm">
+        <tr><th>2018:</th><th> {{ values_year.0 |slice:":2" }} </th></tr>
+        <tr><td>  </td><td> {% bar_chart values_a_2018 captions_a_2013 %} </td></tr>
+    </table>
+
+
+<table class="table table-sm">
+        <tr><th>2017:</th><th></th></tr>
+        <tr><td>  </td><td> {% bar_chart values_a_2017 captions_a_2013 %} </td></tr>
+    </table>
+
+
+<table class="table table-sm">
+        <tr><th>2016:</th><th></th></tr>
+        <tr><td>  </td><td> {% bar_chart values_a_2016 captions_a_2013 %} </td></tr>
+    </table>
+
+
+<table class="table table-sm">
+        <tr><th>2015:</th><th></th></tr>
+        <tr><td>  </td><td> {% bar_chart values_a_2015 captions_a_2013 %} </td></tr>
+    </table>
+
+
+<table class="table table-sm">
+        <tr><th>2014:</th><th></th></tr>
+        <tr><td>  </td><td> {% bar_chart values_a_2014 captions_a_2013 %} </td></tr>
+    </table>
+
+
+<table class="table table-sm">
+        <tr><th>2013:</th><th></th></tr>
+        <tr><td>  </td><td> {% bar_chart values_a_2013 captions_a_2013 %} </td></tr>
+    </table>
+
+
+<table class="table table-sm">
+        <tr><th>2012:</th><th></th></tr>
+        <tr><td>  </td><td> {% bar_chart values_a_2012 captions_a_2013 %} </td></tr>
+    </table>
+
+
+{% endblock %}
