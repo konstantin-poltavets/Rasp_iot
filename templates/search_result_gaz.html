@@ -7,19 +7,26 @@
 {% load chart_tags %}
 
 
+
    <table class="table table-sm">
-        <tr><th>Years:</th><th></th></tr>
-        {% for v_y in values_year %}
-        <tr><td>  {{ v_y }} </td></tr>
- {% endfor %}
+        <tr><td>Average price</td><td>{{ query_Avg|floatformat }} </td></tr>
+        <tr><td>Sum UAH</td><td>{{ query_Sum|floatformat }} </td></tr>
+       <tr><td>Liters</td><td>{{ query_Liters|floatformat }} </td></tr>
+        <tr><td>Count</td><td>{{ query_Count|floatformat }} </td></tr>
+ </table>
+
+
+<table class="table table-sm">
+        <tr><th>Total per year:</th><th></th></tr>
+        <tr><td>  </td><td> {% bar_chart values_a captions_a %} </td></tr>
     </table>
 
-<h3>---------------------------------------------------------</h3>
+
     <table class="table table-sm">
         <tr><th>Date</th><th>Liters</th><th>Price</th></tr>
-        {% for gaz in values %}
-        <tr>   <td> {{ gaz.created_date }} </td>
-            <td> {{ gaz.fuel_type }} </td>
+        {% for gaz in values_dat  %}
+        <tr>   <td> {{ gaz.0.month }}.{{ gaz.0.year }} </td>
+            <td> {{ gaz.1|floatformat}} </td>
             <td> {{ gaz.station }} </td>
             <td> {{ gaz.price_before_disc |floatformat }} </td>
             <td> {{ gaz.liters |floatformat}} </td>
@@ -32,10 +39,6 @@
     </table>
 
 
-<table class="table table-sm">
-        <tr><th>Total per year:</th><th></th></tr>
-        <tr><td>  </td><td> {% bar_chart values_a captions_a %} </td></tr>
-    </table>
 
 
 

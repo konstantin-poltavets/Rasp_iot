@@ -1,0 +1,18 @@
+{% extends 'index_1.html' %}
+{% block content %}
+{% load staticfiles %}
+{% load crispy_forms_tags %}
+{% load chart_tags %}
+
+<br>
+<br>
+
+   <table class="table table-sm">
+        <tr><th>{{start_date}} : {{end_date}}</th><th></th></tr>
+       <tr><td>  Average </td><td>  {{ content.query_Avg |floatformat}} </td></tr>
+       <tr><td>  Sum </td><td>  {{ content.query_Sum |floatformat}} </td></tr>
+       <tr><td>  Count </td><td>  {{ content.query_Count|floatformat }} </td></tr>
+       <tr><td>  Liters </td><td>  {{ content.query_Liters |floatformat}} </td></tr>
+    </table>
+
+{% endblock %}

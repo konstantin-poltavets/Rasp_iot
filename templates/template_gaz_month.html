@@ -39,7 +39,7 @@
 
 
 <table class="table table-sm">
-        <tr><th>2018:</th><th> {{ values_year.0 }} </th></tr>
+        <tr><th>2018:</th><th> {{ values_year.0 |slice:":2" }} </th></tr>
         <tr><td>  </td><td> {% bar_chart values_a_2018 captions_a_2013 %} </td></tr>
     </table>
 

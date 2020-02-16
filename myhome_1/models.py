@@ -52,6 +52,19 @@ class gazoline(models.Model):
     class Meta:
         ordering = ["-created_date", "-id"]
 
+
+    def agregates(self, start_date, end_date):
+        query = self.objects.all().filter(created_date__range=(start_date, end_date))
+        query_Avg = query.aggregate(Avg('price_liter'))["price_liter__avg"]
+        query_Count = query.aggregate(Count('created_date'))["created_date__count"]
+        query_Sum = query.aggregate(Sum('price_after_disc'))["price_after_disc__sum"]
+        query_Liters = query.aggregate(Sum('liters'))["liters__sum"]
+        agr = {'query_Avg':query_Avg, 'query_Count':query_Count, 'query_Sum':query_Sum, 'query_Liters':query_Liters }
+        return agr
+
+
+
+
     def __float__(self):
         return (self.price)
 
