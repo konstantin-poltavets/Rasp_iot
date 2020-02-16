@@ -149,15 +149,11 @@ def gaz_add(request):
 
 
 def gaz_template(request):
-    start_date = '2012-01-01'
-    end_date = '2018-12-31'
-    content = gazoline.agregates(gazoline, start_date, end_date)
 
-    cont =
+    cont = gazoline.agregates(gazoline, 2012, 2012)
+    print(cont)
 
-    return render(request, 'template_gaz_func.html', {'start_date': start_date,
-                                                      'end_date': end_date,
-                                                      'content': content })
+    return render(request, 'template_gaz_func.html', {'cont': cont })
 
 
 def gazoline_edit(request, pk):

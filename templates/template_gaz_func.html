@@ -8,11 +8,32 @@
 <br>
 
    <table class="table table-sm">
-        <tr><th>{{start_date}} : {{end_date}}</th><th></th></tr>
-       <tr><td>  Average </td><td>  {{ content.query_Avg |floatformat}} </td></tr>
-       <tr><td>  Sum </td><td>  {{ content.query_Sum |floatformat}} </td></tr>
-       <tr><td>  Count </td><td>  {{ content.query_Count|floatformat }} </td></tr>
-       <tr><td>  Liters </td><td>  {{ content.query_Liters |floatformat}} </td></tr>
+        <tr>
+            <td><b>Период</b> </td>
+            <td><b>Средняя цена/л, грн</b></td>
+            <td><b>Всего, грн</b></td>
+            <td><b>Заправок</b></td>
+            <td><b>Литров</b></td>
+            <td><b>Пробег, км</b></td>
+        </tr>
+
+
+           {% for content  in cont  %}
+
+        <tr>
+            <td>{{content.start_date}} - {{content.end_date}}</td>
+
+       <td> {{ content.query_Avg |floatformat}} </td>
+       <td> {{ content.query_Sum |floatformat}} </td>
+       <td> {{ content.query_Count|floatformat }} </td>
+       <td> {{ content.query_Liters |floatformat}} </td>
+            <td> {{ content.query_milles |floatformat}} </td>
+        </tr>
+
+       {% endfor %}
+
     </table>
+
+
 
 {% endblock %}
