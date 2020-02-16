@@ -4,13 +4,13 @@
     <div class="col-xs-12">
 
 {% block content %}
-<h3>Заправки:</h3>
+<h3>Р—Р°РїСЂР°РІРєРё:</h3>
 
 {% load staticfiles %}
 
 <form>{% csrf_token %}
     <table class="table table-hover"  width="100%">
-        <tr><th>Дата</th> <th>Тип</th><th>Заправка</th><th>Цена</th><th>Литров</th><th>За литр</th></tr>
+        <tr><th>Р”Р°С‚Р°</th> <th>РўРёРї</th><th>Р—Р°РїСЂР°РІРєР°</th><th>Р¦РµРЅР°</th><th>Р›РёС‚СЂРѕРІ</th><th>Р—Р° Р»РёС‚СЂ</th></tr>
 
     {% for gaz in object_list %}
 
