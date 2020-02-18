@@ -10,11 +10,14 @@
 
 
 
-    <form action="/api-mqtt/gaz_search_result/" method="get">
+    <form action="/api-mqtt/gaz_template/" method="get">
+    <!--form action="/api-mqtt/gaz_search_result/" method="get"-->
 
+        <br>
+        	  Year 1 :
+        <br>
 
-        Year 1 :
-        <select name="year_1">
+        <select class="custom-select" id="inputGroupSelect01" name="year_1">
         <option value="2020">2020</option>
         <option value="2019">2019</option>
             <option value="2018">2018</option>
@@ -25,8 +28,12 @@
         <option value="2013">2013</option>
              <option value="2012">2012</option>
       </select>
+        <br>
+
 	  Year 2 :
-  <select name="year_2">
+        <br>
+
+  <select class="custom-select" id="inputGroupSelect01" name="year_2">
         <option value="2020">2020</option>
         <option value="2019">2019</option>
             <option value="2018">2018</option>
@@ -37,8 +44,12 @@
         <option value="2013">2013</option>
              <option value="2012">2012</option>
       </select>
-        <input type="submit" value="Search">
+
+        <br>
+        <br>
+        <input type="submit" class="btn btn-success" value="Search">
     </form>
 
-{% endblock %}
 
+
+{% endblock %}

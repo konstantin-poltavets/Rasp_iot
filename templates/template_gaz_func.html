@@ -4,6 +4,7 @@
 {% load crispy_forms_tags %}
 {% load chart_tags %}
 
+
 <br>
 <br>
 
@@ -15,10 +16,30 @@
             <td><b>Заправок</b></td>
             <td><b>Литров</b></td>
             <td><b>Пробег, км</b></td>
+            <td><b>Расход </b></td>
         </tr>
 
 
            {% for content  in cont  %}
+            {% if forloop.last %}
+                <tr><td><b>Total:</b></td> <td>  </td><td> </td><td>  </td><td>  </td><td>  </td></tr>
+
+               <tr>
+                   <td><b>{{content.start_date}} - {{content.end_date}}</b></td>
+
+       <td> <b>{{ content.query_Avg |floatformat}} </b></td>
+       <td> <b>{{ content.query_Sum |floatformat}} </b></td>
+       <td> <b>{{ content.query_Count|floatformat }} </b></td>
+       <td> <b>{{ content.query_Liters |floatformat}} </b></td>
+       <td> <b>{{ content.distance |floatformat}} </b></td>
+                   <td> <b>{{ content.rashod |floatformat}} </b></td>
+
+        </tr>
+
+
+
+            {% else %}
+
 
         <tr>
             <td>{{content.start_date}} - {{content.end_date}}</td>
@@ -27,13 +48,25 @@
        <td> {{ content.query_Sum |floatformat}} </td>
        <td> {{ content.query_Count|floatformat }} </td>
        <td> {{ content.query_Liters |floatformat}} </td>
-            <td> {{ content.query_milles |floatformat}} </td>
+            <td> {{ content.distance |floatformat}} </td>
+             <td> <b>{{ content.rashod |floatformat}} </b></td>
+
         </tr>
 
+       {% endif %}
        {% endfor %}
 
-    </table>
+       </table>
 
+<table class="table table-sm">
 
+    <tr><td> Заправок </td> <td>{% bar_chart values_count values_dat %}</td><tr>
+    <tr> <td>Всего грн </td><td>{% bar_chart values_sum values_dat %}</td><tr>
+    <tr> <td>Средняя грн </td><td>{% bar_chart values_avg values_dat %}</td><tr>
+    <tr> <td>Литров </td><td>{% bar_chart values_liters values_dat %}</td><tr>
+    <tr> <td>Пробег км </td><td>{% bar_chart values_distance values_dat %}</td><tr>
+    <tr> <td>Расход </td><td>{% bar_chart values_rashod values_dat %}</td><tr>
+
+<table>
 
 {% endblock %}

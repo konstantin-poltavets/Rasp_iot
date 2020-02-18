@@ -23,5 +23,6 @@ urlpatterns = [
     path('gaz_edit/<int:pk>/delete/', views.GazDelete.as_view(), name='gaz_del'),
     path('gaz_search/', views.gaz_search, name = 'gaz_search'),
     path('gaz_search_result/', views.gaz_search_result, name = 'gaz_search_result'),
+    path('export/csv/', views.export_users_csv, name='export_users_csv'),
 ]
 

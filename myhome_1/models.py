@@ -1,7 +1,7 @@
 from django.conf import settings
 from django.db import models
 from django.utils import timezone
-from django.db.models import Avg, Count, Sum
+from django.db.models import Avg, Count, Sum, Min, Max
 
 class mqtt(models.Model):
     topic = models.CharField(max_length=200)
@@ -60,43 +60,41 @@ class gazoline(models.Model):
     def agregates(self, start_date, end_date):
         cont = []
         start_date_final = str(start_date)+ '-01-01'
-        end_date_final = str(end_date)+ '-12-31'
-
+        # annual summary
         for y in range(start_date, end_date+1, 1):
             start_date = str(y) + '-01-01'
-
             end_date = str(y) + '-12-31'
             query = self.objects.all().filter(created_date__range=(start_date, end_date))
 
-            milles_start = query.values("millage")[0]["millage"]
-            milles_end = query.values("millage")[6]["millage"]
-            milles = milles_end - milles_start
-
-            print("milles   ",milles)
-
-            #query_Avg = query.aggregate(Avg('price_liter'))["price_liter__avg"]
             query_Count = query.aggregate(Count('created_date'))["created_date__count"]
             query_Sum = query.aggregate(Sum('price_after_disc'))["price_after_disc__sum"]
             query_Liters = query.aggregate(Sum('liters'))["liters__sum"]
             query_Avg = query_Sum/query_Liters
+            query_Min = query.aggregate(Min('millage'))["millage__min"]
+            query_Max = query.aggregate(Max('millage'))["millage__max"]
+            distance = query_Max - query_Min
+            rashod = (query_Liters/distance)*100
 
-            agr = {'start_date': start_date_final, 'end_date': end_date, 'query_Avg': query_Avg,
+            agr = {'start_date': start_date, 'end_date': end_date, 'query_Avg': query_Avg,
                    'query_Count': query_Count, 'query_Sum': query_Sum, 'query_Liters': query_Liters,
-                   'milles': milles}
+                   'query_Min': query_Min, 'query_Max': query_Max, 'distance': distance, 'rashod': rashod}
 
             cont.append(agr)
-
-            #summary
-
+            #summary for whole period
         query = self.objects.all().filter(created_date__range=(start_date_final, end_date))
         query_Count = query.aggregate(Count('created_date'))["created_date__count"]
         query_Sum = query.aggregate(Sum('price_after_disc'))["price_after_disc__sum"]
         query_Liters = query.aggregate(Sum('liters'))["liters__sum"]
-        query_Avg = query_Sum/query_Liters
-        milles = 1000
-        agr = {'start_date':start_date_final,'end_date':end_date, 'query_Avg':query_Avg,
-               'query_Count':query_Count, 'query_Sum':query_Sum, 'query_Liters':query_Liters,
-               'milles':milles}
+        query_Avg = query_Sum / query_Liters
+        query_Min = query.aggregate(Min('millage'))["millage__min"]
+        query_Max = query.aggregate(Max('millage'))["millage__max"]
+        distance = query_Max - query_Min
+        rashod = (query_Liters/distance)*100
+
+        agr = {'start_date': start_date_final, 'end_date': end_date, 'query_Avg': query_Avg,
+               'query_Count': query_Count, 'query_Sum': query_Sum, 'query_Liters': query_Liters,
+                'query_Min': query_Min, 'query_Max': query_Max, 'distance': distance, 'rashod': rashod}
+
         cont.append(agr)
 
         return cont

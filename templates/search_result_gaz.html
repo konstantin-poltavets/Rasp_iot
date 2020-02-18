@@ -13,11 +13,13 @@
         <tr><td>Sum UAH</td><td>{{ query_Sum|floatformat }} </td></tr>
        <tr><td>Liters</td><td>{{ query_Liters|floatformat }} </td></tr>
         <tr><td>Count</td><td>{{ query_Count|floatformat }} </td></tr>
+       <tr><td>Distance</td><td>{{ distance }} </td></tr>
+       <tr><td>Distance</td><td>{{ query_VR }} </td></tr>
  </table>
 
 
 <table class="table table-sm">
-        <tr><th>Total per year:</th><th></th></tr>
+        <tr><th>Total :</th><th></th></tr>
         <tr><td>  </td><td> {% bar_chart values_a captions_a %} </td></tr>
     </table>
 
