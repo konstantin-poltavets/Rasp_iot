@@ -11,7 +11,7 @@ from qsstats import QuerySetStats
 from datetime import date
 from .forms import MyForm, gazForm
 from django.http import HttpResponse, JsonResponse
-from django.db.models import F, Count, Value, Avg, Sum, ValueRange
+from django.db.models import F, Count, Value, Avg, Sum,  Min, Max
 from django.views.generic.edit import DeleteView
 from django.urls import reverse_lazy
 from django.db.models.functions import Extract
@@ -96,6 +96,9 @@ def view_func_iii(request):
     start_date = date(2016, 3, 12)
     end_date = date(2016, 3, 16)
 
+
+
+
     queryset = mqtt.objects.all()
     qsstats = QuerySetStats(queryset, date_field='created_date')
     values = qsstats.time_series(start_date, end_date, interval='days', aggregate=Count('created_date'))
@@ -149,15 +152,44 @@ def gaz_add(request):
 
 
 def gaz_template(request):
-    start_date = '2012-01-01'
-    end_date = '2018-12-31'
-    content = gazoline.agregates(gazoline, start_date, end_date)
+    start_date = 2012
+    end_date = 2013
+    start_date = int(request.GET['year_1'])
+    end_date = int(request.GET['year_2'])
 
-    cont =
+    cont = gazoline.agregates(gazoline, start_date, end_date)
+   # print(cont)
 
-    return render(request, 'template_gaz_func.html', {'start_date': start_date,
-                                                      'end_date': end_date,
-                                                      'content': content })
+    values_count = [t["query_Count"] for t in cont]
+    values_dat = [t["start_date"][:4] for t in cont]
+    values_sum = [t["query_Sum"] for t in cont]
+    values_avg = [t["query_Avg"] for t in cont]
+    values_liters = [t["query_Liters"] for t in cont]
+    values_rashod = [t["rashod"] for t in cont]
+    values_distance = [t["distance"] for t in cont]
+
+    values_count.pop(), values_dat.pop(),values_sum.pop()
+    values_avg.pop(), values_liters.pop(), values_distance.pop(), values_rashod.pop()
+
+
+    #print("disc", gazoline().disc())
+   # print("values_dat", values_dat)
+    #captions_a = [t[0].year for t in values_dat]
+
+    return render(request, 'template_gaz_func.html', {'cont': cont,
+                                                      'values_dat': values_dat,
+                                                      'values_count': values_count,
+                                                      'values_sum': values_sum,
+                                                      'values_avg': values_avg,
+                                                      'values_liters': values_liters,
+                                                      'values_distance': values_distance,
+                                                      'values_rashod': values_rashod
+                                                      })
+
+
+
+
+
 
 
 def gazoline_edit(request, pk):
@@ -173,8 +205,14 @@ def gazoline_edit(request, pk):
 
 
 def gaz_template_month(request):
-    start_date = date(2012, 1, 1)
-    end_date = date(2020, 12, 31)
+
+    #start_date = date(2012, 1, 1)
+    #end_date = date(2020, 12, 31)
+
+    start_date = date(int(request.GET['year_1']), 1, 1)
+    end_date = date(int(request.GET['year_2']), 12, 31)
+
+
     query = gazoline.objects.all()
     query_Avg = query.aggregate(Avg('price_liter'))["price_liter__avg"]
     query_Count = query.aggregate(Count('price_liter'))["price_liter__count"]
@@ -204,11 +242,13 @@ def gaz_search_result(request):
     end_date = date(int(request.GET['year_2']),12,31)
 
     query = gazoline.objects.all().filter(created_date__range=(start_date, end_date))
-    print("query", query)
     query_Avg = query.aggregate(Avg('price_liter'))["price_liter__avg"]
     query_Count = query.aggregate(Count('created_date'))["created_date__count"]
     query_Sum = query.aggregate(Sum('price_after_disc'))["price_after_disc__sum"]
     query_Liters = query.aggregate(Sum('liters'))["liters__sum"]
+    query_Min = query.aggregate(Min('millage'))["millage__min"]
+    query_Max = query.aggregate(Max('millage'))["millage__max"]
+    distance = query_Max - query_Min
 
     qsstats = QuerySetStats(query, date_field='created_date')
     values_dat_m = qsstats.time_series(start_date, end_date, interval='months', aggregate=Sum('price_after_disc'))
@@ -222,7 +262,9 @@ def gaz_search_result(request):
                                                       'query_Liters': query_Liters,
                                                      'values_dat': values_dat_m,
                                                      'values_a': values_a,
-                                                     'captions_a': captions_a})
+                                                     'captions_a': captions_a,
+                                                      'distance': distance })
+
 
 
 
@@ -261,3 +303,26 @@ class LineChartJSONView(BaseLineChartView):
 
 line_chart = TemplateView.as_view(template_name='line_chart.html')
 line_chart_json = LineChartJSONView.as_view()
+
+
+
+
+
+import csv
+
+from django.http import HttpResponse
+from django.contrib.auth.models import User
+
+def export_users_csv(request):
+    response = HttpResponse(content_type='text/csv')
+    response['Content-Disposition'] = 'attachment; filename="users.csv"'
+
+    writer = csv.writer(response)
+    writer.writerow(['Username', 'First name', 'Last name', 'Email address'])
+
+    users = gazoline.objects.all().values_list( 'created_date', 'fuel_type', 'liters', 'price_liter',
+                                               'price_after_disc', 'millage')
+    for user in users:
+        writer.writerow(user)
+
+    return response

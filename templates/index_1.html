@@ -8,7 +8,7 @@
 
 
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="{% url 'index' %}">Home</a>
+        <a class="navbar-brand mb-0 h5" href="{% url 'index' %}">Home</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -18,7 +18,7 @@
 
 
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <a class="nav-link dropdown-toggle mb-0 h5" href="" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         Graphs
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -30,10 +30,10 @@
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link" href="{% url 'publish_1' %}">Publish_1</a>
+                    <a class="nav-link dropdown-toggle mb-0 h5" href="{% url 'publish_1' %}">Publish_1</a>
                 </li>
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <a class="nav-link dropdown-toggle b-0 h5" href="" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         Modules
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -45,7 +45,7 @@
                 </li>
 
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <a class="nav-link dropdown-toggle b-0 h5" href="" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         Modules
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -57,7 +57,7 @@
                 </li>
 
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <a class="nav-link dropdown-toggle b-0 h5" href="" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         Car
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -68,7 +68,7 @@
                         <a class="dropdown-item" href="#">G board</a>
                     </div>
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <a class="nav-link dropdown-toggle b-0 h5" href="" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         MQTT
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -78,15 +78,25 @@
                     </div>
 
                 </li>
-                <li class="nav-item">
+                <li class="nav-item b-0 h5">
                     <a class="nav-link disabled" href="{% url 'pi_status' %}">Pi_Status</a>
                 </li>
 
-                <li class="nav-item">
-                    <a class="nav-link disabled" href="{% url 'admin:index' %}">Admin</a>
-                </li>
+                 <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle b-0 h5" href="" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Admin
+                    </a>
 
-                 <li class="nav-item">
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="{% url 'admin:index' %}">Admin</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="{% url 'export_users_csv' %}">Export gaz</a>
+                    </div>
+
+                 </li>
+
+
+                 <li class="nav-item b-0 h5">
                     <a class="nav-link disabled" href="{% url 'logout' %}">Logout</a>
                 </li>
 
