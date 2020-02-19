@@ -65,7 +65,7 @@ class gazoline(models.Model):
             start_date = str(y) + '-01-01'
             end_date = str(y) + '-12-31'
             query = self.objects.all().filter(created_date__range=(start_date, end_date))
-
+#dddksdksdsdsdsdsd
             query_Count = query.aggregate(Count('created_date'))["created_date__count"]
             query_Sum = query.aggregate(Sum('price_after_disc'))["price_after_disc__sum"]
             query_Liters = query.aggregate(Sum('liters'))["liters__sum"]
