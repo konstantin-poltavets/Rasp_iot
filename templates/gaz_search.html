@@ -5,19 +5,46 @@
 {% load staticfiles %}
 {% load crispy_forms_tags %}
 
-<br>
-<br>
 
+  <script type="text/javascript">
+  function SelectDefault()
+  {
+       // порядковый индекс под которым идёт элемент с  value=7
+    document.getElementById("year_1").options[4].selected=true;
+
+  }
+
+   function Size()
+  {
+    alert( "количество элементов= " + document.getElementById("year_1").length);
+      if (confirm("Очистить список?")) {
+
+	   document.getElementById("year_1").length=0;
+	}
+      else
+       {
+
+	   }
+
+  }
+  </script>
+
+<br>
+<br>
 
 
     <form action="/api-mqtt/gaz_template/" method="get">
     <!--form action="/api-mqtt/gaz_search_result/" method="get"-->
 
         <br>
-        	  Year 1 :
+         <div class="mx-auto" style="width: 400px;">
+
+             Year 1 :
         <br>
 
-        <select class="custom-select" id="inputGroupSelect01" name="year_1">
+
+
+        <select class="custom-select" id="year_1" name="year_1">
         <option value="2020">2020</option>
         <option value="2019">2019</option>
             <option value="2018">2018</option>
@@ -33,7 +60,7 @@
 	  Year 2 :
         <br>
 
-  <select class="custom-select" id="inputGroupSelect01" name="year_2">
+  <select class="custom-select" id="inputGroupSelect02" name="year_2">
         <option value="2020">2020</option>
         <option value="2019">2019</option>
             <option value="2018">2018</option>
@@ -48,7 +75,18 @@
         <br>
         <br>
         <input type="submit" class="btn btn-success" value="Search">
+
+      </div>
     </form>
+
+
+
+
+ <script type="text/javascript">
+ SelectDefault();
+ </script>
+
+
 
 
 
