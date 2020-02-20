@@ -8,6 +8,10 @@
 <br>
 <br>
 
+
+<!--form action="/api-mqtt/gaz_template_month/" method="get"-->
+
+
    <table class="table table-sm">
         <tr>
             <td><b>Период</b> </td>
@@ -25,14 +29,13 @@
                 <tr><td><b>Total:</b></td> <td>  </td><td> </td><td>  </td><td>  </td><td>  </td></tr>
 
                <tr>
-                   <td><b>{{content.start_date}} - {{content.end_date}}</b></td>
-
+       <td > <b> From {{  content.start_date}} to {{ content.end_date }}  </b></td>
        <td> <b>{{ content.query_Avg |floatformat}} </b></td>
        <td> <b>{{ content.query_Sum |floatformat}} </b></td>
        <td> <b>{{ content.query_Count|floatformat }} </b></td>
        <td> <b>{{ content.query_Liters |floatformat}} </b></td>
        <td> <b>{{ content.distance |floatformat}} </b></td>
-                   <td> <b>{{ content.rashod |floatformat}} </b></td>
+       <td> <b>{{ content.rashod |floatformat}} </b></td>
 
         </tr>
 
@@ -42,8 +45,7 @@
 
 
         <tr>
-            <td>{{content.start_date}} - {{content.end_date}}</td>
-
+         <td > <b><a href="http:/api-mqtt/gaz_template_month/?year_1={{ content.start_date}}&year_2={{ content.start_date}}"> {{ content.start_date }}  </b></td>
        <td> {{ content.query_Avg |floatformat}} </td>
        <td> {{ content.query_Sum |floatformat}} </td>
        <td> {{ content.query_Count|floatformat }} </td>
@@ -67,6 +69,6 @@
     <tr> <td>Пробег км </td><td>{% bar_chart values_distance values_dat %}</td><tr>
     <tr> <td>Расход </td><td>{% bar_chart values_rashod values_dat %}</td><tr>
 
-<table>
+</table>
 
 {% endblock %}

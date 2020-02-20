@@ -1,30 +1,31 @@
 {% extends 'index_1.html' %}
-
 {% block content %}
-
 {% load staticfiles %}
 {% load crispy_forms_tags %}
-
 
   <script type="text/javascript">
   function SelectDefault()
   {
        // порядковый индекс под которым идёт элемент с  value=7
-    document.getElementById("year_1").options[4].selected=true;
+    document.getElementById("year_1").options[7].selected=true;
+    document.getElementById("year_2").options[7].selected=true;
 
   }
 
    function Size()
   {
-    alert( "количество элементов= " + document.getElementById("year_1").length);
-      if (confirm("Очистить список?")) {
+    len =  document.getElementById("year_1").length;
+    value_year_1 = document.getElementById("year_1").value;
+    console.log(value_year_1);
 
-	   document.getElementById("year_1").length=0;
-	}
-      else
-       {
+    document.getElementById("year_2").length = 0;
 
-	   }
+	    for (var n = 0; n < len; n++)
+	    {
+	     document.getElementById("year_2").options[n].value = value_year_1 + n ;
+	     document.getElementById("year_2").options[n].text = value_year_1 + n ;
+	    }
+
 
   }
   </script>
@@ -39,12 +40,29 @@
         <br>
          <div class="mx-auto" style="width: 400px;">
 
+               Year 2 :
+        <br>
+
+
+               <select class="custom-select" id="year_2" name="year_2" >
+        <option value="2020">2020</option>
+        <option value="2019">2019</option>
+            <option value="2018">2018</option>
+        <option value="2017">2017</option>
+            <option value="2016">2016</option>
+        <option value="2015">2015</option>
+            <option value="2014">2014</option>
+        <option value="2013">2013</option>
+             <option value="2012">2012</option>
+      </select>
+
+
              Year 1 :
         <br>
 
 
 
-        <select class="custom-select" id="year_1" name="year_1">
+        <select class="custom-select" id="year_1" name="year_1" OnChange='Sizebb()' >
         <option value="2020">2020</option>
         <option value="2019">2019</option>
             <option value="2018">2018</option>
@@ -57,20 +75,8 @@
       </select>
         <br>
 
-	  Year 2 :
-        <br>
 
-  <select class="custom-select" id="inputGroupSelect02" name="year_2">
-        <option value="2020">2020</option>
-        <option value="2019">2019</option>
-            <option value="2018">2018</option>
-        <option value="2017">2017</option>
-            <option value="2016">2016</option>
-        <option value="2015">2015</option>
-            <option value="2014">2014</option>
-        <option value="2013">2013</option>
-             <option value="2012">2012</option>
-      </select>
+
 
         <br>
         <br>
@@ -80,12 +86,11 @@
     </form>
 
 
-
-
  <script type="text/javascript">
- SelectDefault();
- </script>
 
+SelectDefault()
+
+  </script>
 
 
 

@@ -206,27 +206,21 @@ def gazoline_edit(request, pk):
 
 def gaz_template_month(request):
 
-    #start_date = date(2012, 1, 1)
-    #end_date = date(2020, 12, 31)
 
-    start_date = date(int(request.GET['year_1']), 1, 1)
-    end_date = date(int(request.GET['year_2']), 12, 31)
+    start_date = date(int(request.GET['year_1'][0:4]),1,1)
+    end_date = date(int(request.GET['year_1'][0:4]),12,31)
 
 
-    query = gazoline.objects.all()
-    query_Avg = query.aggregate(Avg('price_liter'))["price_liter__avg"]
-    query_Count = query.aggregate(Count('price_liter'))["price_liter__count"]
-    query_Sum = query.aggregate(Sum('price_after_disc'))["price_after_disc__sum"]
+    query = gazoline.objects.all().filter(created_date__range=(start_date, end_date))
+    print(query)
 
     qsstats = QuerySetStats(query, date_field='created_date')
-    values_dat = qsstats.time_series(start_date, end_date, interval='years', aggregate=Sum('price_after_disc'))
+    values_dat = qsstats.time_series(start_date, end_date, interval='months', aggregate=Sum('price_after_disc'))
     values_a = [t[1] for t in values_dat]
-    captions_a = [t[0].year for t in values_dat]
+    captions_a = [t[0].month for t in values_dat]
 
     return render(request, 'template_gaz.html', {'values':query ,
-                                                 'query_Avg':query_Avg ,
-                                                 'query_Count':query_Count,
-                                                 'query_Sum':query_Sum,
+
                                                   'values_dat':values_dat,
                                                  'values_a':values_a,
                                                  'captions_a':captions_a})
