@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views import generic
-from .serializers import mqttSerializer
+from .serializers import mqttSerializer, gazSerializer
 from rest_framework import filters, generics
 from .models import mqtt, gazoline
 from django_filters import rest_framework as filters
@@ -20,7 +20,9 @@ from django.views.generic import TemplateView
 from chartjs.views.lines import BaseLineChartView
 
 
-
+class GazListjson(generics.ListAPIView):
+    queryset = gazoline.objects.all()
+    serializer_class = gazSerializer
 
 
 
@@ -205,25 +207,23 @@ def gazoline_edit(request, pk):
 
 
 def gaz_template_month(request):
+#    start_date = date(int(request.GET['year_1'][0:4]),1,1)
+ #   end_date = date(int(request.GET['year_1'][0:4]),12,31)
+    start_date =date(2013,1,1)
+    end_date=date(2013,12,31)
+    query = gazoline.objects.all()
+    qsstats = QuerySetStats(query, date_field='created_date', aggregate=Sum('price_after_disc'))
+    values = qsstats.time_series(start_date, end_date, interval='months')
 
 
-    start_date = date(int(request.GET['year_1'][0:4]),1,1)
-    end_date = date(int(request.GET['year_1'][0:4]),12,31)
+    qsstats_2 = QuerySetStats(query, date_field='created_date', aggregate=Sum('liters'))
+    liters = qsstats_2.time_series(start_date, end_date, interval='months')
+
+    print(values)
+    return render_to_response( 'template_gaz_google.html', {'values':values, 'liters':liters})
 
 
-    query = gazoline.objects.all().filter(created_date__range=(start_date, end_date))
-    print(query)
 
-    qsstats = QuerySetStats(query, date_field='created_date')
-    values_dat = qsstats.time_series(start_date, end_date, interval='months', aggregate=Sum('price_after_disc'))
-    values_a = [t[1] for t in values_dat]
-    captions_a = [t[0].month for t in values_dat]
-
-    return render(request, 'template_gaz.html', {'values':query ,
-
-                                                  'values_dat':values_dat,
-                                                 'values_a':values_a,
-                                                 'captions_a':captions_a})
 
 
 def gaz_search(request):
@@ -295,8 +295,8 @@ class LineChartJSONView(BaseLineChartView):
                 [87, 21, 94, 3, 90, 13, 65]]
 
 
-line_chart = TemplateView.as_view(template_name='line_chart.html')
-line_chart_json = LineChartJSONView.as_view()
+ #   line_chart = TemplateView.as_view(template_name='line_chart.html')
+#    line_chart_json = LineChartJSONView.as_view()
 
 
 
@@ -304,7 +304,7 @@ line_chart_json = LineChartJSONView.as_view()
 
 import csv
 
-from django.http import HttpResponse
+from django.http import HttpResponse, request
 from django.contrib.auth.models import User
 
 def export_users_csv(request):
@@ -320,3 +320,7 @@ def export_users_csv(request):
         writer.writerow(user)
 
     return response
+
+
+def get_success_url(self):
+    return request.META.get('HTTP_REFERER')

@@ -3,6 +3,7 @@ from myhome_1 import views
 
 urlpatterns = [
     path('mqtt/', views.mqttViewSet.as_view({'get': 'list'}), name = 'logout_1'),
+    path('gazjson/', views.GazListjson.as_view()),
     path('mqtt/<int:pk>/', views.mqttDetail.as_view()),
     path('graph/', views.graph_1, name = 'graph_1'),
     path('select/', views.select, name = 'select'),
@@ -24,5 +25,6 @@ urlpatterns = [
     path('gaz_search/', views.gaz_search, name = 'gaz_search'),
     path('gaz_search_result/', views.gaz_search_result, name = 'gaz_search_result'),
     path('export/csv/', views.export_users_csv, name='export_users_csv'),
+    path('back', views.get_success_url, name='get_success_url'),
 ]
 

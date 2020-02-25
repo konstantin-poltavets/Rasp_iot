@@ -52,6 +52,7 @@ INSTALLED_APPS = [
     'iot',
     'django_extensions',
     'chart_tools',
+     'qsstats',
     'chartjs',
 ]
 
