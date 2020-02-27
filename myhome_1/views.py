@@ -21,9 +21,9 @@ from chartjs.views.lines import BaseLineChartView
 
 
 class GazListjson(generics.ListAPIView):
-    queryset = gazoline.objects.all()
+    query = gazoline.objects.all()
     serializer_class = gazSerializer
-
+    queryset = QuerySetStats(query, date_field='created_date', aggregate=Sum('liters'))
 
 
 
@@ -224,6 +224,9 @@ def gaz_template_month(request):
 
 def gaz_search(request):
     return render_to_response('gaz_search.html')
+
+def gchart(request):
+    return render_to_response('gchart_1.html')
 
 
 def gaz_search_result(request):

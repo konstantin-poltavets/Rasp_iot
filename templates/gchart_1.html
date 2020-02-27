@@ -1,87 +1,66 @@
+{% extends "index_1.html" %}
+{% block content %}
+   {% load static %}
 
-<html>
-  <head>
-
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js" ></script>
-<!--script src="ajaxGetPost.js" ></script-->
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 <script src="https://www.google.com/jsapi"></script>
-    <script type="text/javascript">
-
-
-$(document).ready(function ()
-{
-   file="'C:\Users\poltavet\OneDrive - Nokia\my\Python\Google_Chart\input.json'"; // API URL
-   $.get(file, function(data)
-   {
-       charts(data,"ColumnChart"); // Column Charts
-       charts(data,"PieChart"); // Pie Charts
-       charts(data,"BarChart"); // Bar Charts
-       charts(data,"GeoChart"); // Geo Charts
-   });
-});
-</script>
-</head>
-
-
-<body>
-
-
-<div id="chart_div"></div>
-<div id="regions_div" ></div>
-<div id="piechart_div" ></div>
-<div id="bar_div" ></div>
-
-
-
+<div id="demo"></div>
 <script>
-function charts(data,ChartType)
-{
-   var c=ChartType;
-   var jsonData=data;
-   google.load("visualization", "1", {packages:["corechart"], callback:drawVisualization});
-   function drawVisualization()
-   {
-       var data = new google.visualization.DataTable();
-       data.addColumn('string', 'Country');
-       data.addColumn('number', 'Population Density');
-       $.each(jsonData, function(i,jsonData)
-       {
-           var value=jsonData.value;
-           var name=jsonData.name;
-           data.addRows([ [name, value]]);
-       });
+// 3. This function fires when Google Charts has been fully loaded
 
-       var options = {
-           title : "Word Population Density",
-           animation:{
-               duration: 3000,
-               easing: 'out',
-               startup: true
-           },
-           colorAxis: {colors: ['#54C492', '#cc0000']},
-           datalessRegionColor: '#dedede',
-           defaultColor: '#dedede'
-       };
+document.getElementById("demo").innerHTML = "Page location is " + window.location.hostname;
 
-       var chart;
-       if(c=="ColumnChart") // Column Charts
-           chart=new google.visualization.ColumnChart(document.getElementById('chart_div'));
-       else if(c=="PieChart") // Pie Charts
-           chart=new google.visualization.PieChart(document.getElementById('piechart_div'));
-       else if(c=="BarChart") // Bar Charts
-           chart=new google.visualization.BarChart(document.getElementById('bar_div'));
-       else if(c=="GeoChart") // Geo Charts
-           chart=new google.visualization.GeoChart(document.getElementById('regions_div'));
 
-       chart.draw(data, options);
-   }
+function drawChart() {
+
+  // 4. Retrieve the raw JSON data
+  var jsonData = $.ajax({
+   url: '/api-mqtt/gazjson/?format=json',
+   dataType: 'json',
+  }).done(function (results) {
+
+    // 5. Create a new DataTable (Charts expects data in this format)
+    var data = new google.visualization.DataTable();
+
+    // 6. Add two columns to the DataTable
+    data.addColumn('datetime', 'Time');
+    data.addColumn('number',   'Liters');
+
+    // 7. Cycle through the records, adding one row per record
+    results.forEach(function(packet) {
+      data.addRow([
+          (new Date(packet.created_date)),
+          parseFloat(packet.liters),
+        ]);
+    });
+
+    // 8. Create a new line chart
+    var chart = new google.visualization.ColumnChart($('#chart').get(0));
+
+    // 9. Render the chart, passing in our DataTable and any config data
+    chart.draw(data, {
+      title:  'Title',
+      height: 150
+    });
+
+  });
+
 }
-</script>
+
+// 1. Start loading Google Charts
+google.load('visualization', '1', {
+  packages: ['corechart']
+});
+
+// 2. Set a callback function to fire when loading is complete
+google.setOnLoadCallback(drawChart);
+
+
+    </script>
+  </head>
+  <body>
+<div id="chart" style="width: 100%"></div>
 
 
 
-
-
-</body>
-
-</html>
+  {% endblock %}
