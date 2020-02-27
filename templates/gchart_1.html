@@ -1,0 +1,87 @@
+
+<html>
+  <head>
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js" ></script>
+<!--script src="ajaxGetPost.js" ></script-->
+<script src="https://www.google.com/jsapi"></script>
+    <script type="text/javascript">
+
+
+$(document).ready(function ()
+{
+   file="'C:\Users\poltavet\OneDrive - Nokia\my\Python\Google_Chart\input.json'"; // API URL
+   $.get(file, function(data)
+   {
+       charts(data,"ColumnChart"); // Column Charts
+       charts(data,"PieChart"); // Pie Charts
+       charts(data,"BarChart"); // Bar Charts
+       charts(data,"GeoChart"); // Geo Charts
+   });
+});
+</script>
+</head>
+
+
+<body>
+
+
+<div id="chart_div"></div>
+<div id="regions_div" ></div>
+<div id="piechart_div" ></div>
+<div id="bar_div" ></div>
+
+
+
+<script>
+function charts(data,ChartType)
+{
+   var c=ChartType;
+   var jsonData=data;
+   google.load("visualization", "1", {packages:["corechart"], callback:drawVisualization});
+   function drawVisualization()
+   {
+       var data = new google.visualization.DataTable();
+       data.addColumn('string', 'Country');
+       data.addColumn('number', 'Population Density');
+       $.each(jsonData, function(i,jsonData)
+       {
+           var value=jsonData.value;
+           var name=jsonData.name;
+           data.addRows([ [name, value]]);
+       });
+
+       var options = {
+           title : "Word Population Density",
+           animation:{
+               duration: 3000,
+               easing: 'out',
+               startup: true
+           },
+           colorAxis: {colors: ['#54C492', '#cc0000']},
+           datalessRegionColor: '#dedede',
+           defaultColor: '#dedede'
+       };
+
+       var chart;
+       if(c=="ColumnChart") // Column Charts
+           chart=new google.visualization.ColumnChart(document.getElementById('chart_div'));
+       else if(c=="PieChart") // Pie Charts
+           chart=new google.visualization.PieChart(document.getElementById('piechart_div'));
+       else if(c=="BarChart") // Bar Charts
+           chart=new google.visualization.BarChart(document.getElementById('bar_div'));
+       else if(c=="GeoChart") // Geo Charts
+           chart=new google.visualization.GeoChart(document.getElementById('regions_div'));
+
+       chart.draw(data, options);
+   }
+}
+</script>
+
+
+
+
+
+</body>
+
+</html>
