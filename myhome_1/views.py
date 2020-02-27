@@ -207,20 +207,16 @@ def gazoline_edit(request, pk):
 
 
 def gaz_template_month(request):
-#    start_date = date(int(request.GET['year_1'][0:4]),1,1)
- #   end_date = date(int(request.GET['year_1'][0:4]),12,31)
-    start_date =date(2013,1,1)
-    end_date=date(2013,12,31)
+    start_date = date(int(request.GET['year_1'][0:4]),1,1)
+    end_date = date(int(request.GET['year_1'][0:4]),12,31)
     query = gazoline.objects.all()
     qsstats = QuerySetStats(query, date_field='created_date', aggregate=Sum('price_after_disc'))
     values = qsstats.time_series(start_date, end_date, interval='months')
+    qsstats = QuerySetStats(query, date_field='created_date', aggregate=Sum('liters'))
+    liters = qsstats.time_series(start_date, end_date, interval='months')
+    query_1 = query.filter(created_date__year=start_date.year)
 
-
-    qsstats_2 = QuerySetStats(query, date_field='created_date', aggregate=Sum('liters'))
-    liters = qsstats_2.time_series(start_date, end_date, interval='months')
-
-    print(values)
-    return render_to_response( 'template_gaz_google.html', {'values':values, 'liters':liters})
+    return render_to_response( 'template_gaz_google.html', {'query':query_1,'values':values, 'liters':liters})
 
 
 
