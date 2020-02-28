@@ -21,9 +21,9 @@ from chartjs.views.lines import BaseLineChartView
 
 
 class GazListjson(generics.ListAPIView):
-    query = gazoline.objects.all()
+    queryset=gazoline.objects.all().filter(fuel_type = 'LPG')
     serializer_class = gazSerializer
-    queryset = QuerySetStats(query, date_field='created_date', aggregate=Sum('liters'))
+
 
 
 

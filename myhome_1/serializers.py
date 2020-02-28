@@ -1,3 +1,4 @@
+from django.db.models import QuerySet, Sum
 from rest_framework import serializers
 from .models import mqtt, gazoline
 
@@ -11,6 +12,8 @@ class mqttSerializer(serializers.ModelSerializer):
 
 class gazSerializer(serializers.ModelSerializer):
 
+
     class Meta:
         model = gazoline
-        fields = ('created_date','liters','millage' )
+        fields = ('created_date','liters','millage','fuel_type')
+

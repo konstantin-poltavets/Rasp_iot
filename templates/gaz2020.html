@@ -18,7 +18,7 @@ function drawChart() {
 
   // 4. Retrieve the raw JSON data
   var jsonData = $.ajax({
-   url: '{% url "google_rest_int" %}' ,
+   url: '{% url "gazjson" %}' ,
    dataType: 'json',
   }).done(function (results) {
 
