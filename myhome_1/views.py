@@ -311,9 +311,9 @@ def export_users_csv(request):
     response['Content-Disposition'] = 'attachment; filename="gazoline.csv"'
 
     writer = csv.writer(response)
-    writer.writerow(['id', 'fuel_type', 'liters', 'price_liter','price_after_disc','millage','station'])
+    writer.writerow(['id', 'created_date','fuel_type', 'liters', 'price_liter','price_after_disc','millage','station'])
 
-    gaz = gazoline.objects.all().values_list( 'id', 'fuel_type', 'liters', 'price_liter','price_after_disc','millage','station')
+    gaz = gazoline.objects.all().values_list( 'id', 'created_date', 'fuel_type', 'liters', 'price_liter','price_after_disc','millage','station')
     for gaz in gaz:
         writer.writerow(gaz)
 
