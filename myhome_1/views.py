@@ -308,15 +308,14 @@ from django.contrib.auth.models import User
 
 def export_users_csv(request):
     response = HttpResponse(content_type='text/csv')
-    response['Content-Disposition'] = 'attachment; filename="users.csv"'
+    response['Content-Disposition'] = 'attachment; filename="gazoline.csv"'
 
     writer = csv.writer(response)
-    writer.writerow(['Username', 'First name', 'Last name', 'Email address'])
+    writer.writerow(['id', 'fuel_type', 'liters', 'price_liter','price_after_disc','millage','station'])
 
-    users = gazoline.objects.all().values_list( 'created_date', 'fuel_type', 'liters', 'price_liter',
-                                               'price_after_disc', 'millage')
-    for user in users:
-        writer.writerow(user)
+    gaz = gazoline.objects.all().values_list( 'id', 'fuel_type', 'liters', 'price_liter','price_after_disc','millage','station')
+    for gaz in gaz:
+        writer.writerow(gaz)
 
     return response
 
