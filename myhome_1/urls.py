@@ -27,5 +27,6 @@ urlpatterns = [
     path('export/csv/', views.export_users_csv, name='export_users_csv'),
     path('back', views.get_success_url, name='get_success_url'),
     path('gchart', views.gchart, name='gchart_url'),
+    path('get_stock/', views.get_stock, name="get_stock"),
 ]
 

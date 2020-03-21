@@ -18,6 +18,8 @@ from django.db.models.functions import Extract
 from random import randint
 from django.views.generic import TemplateView
 from chartjs.views.lines import BaseLineChartView
+from .script import stock
+
 
 
 class GazListjson(generics.ListAPIView):
@@ -322,3 +324,12 @@ def export_users_csv(request):
 
 def get_success_url(self):
     return request.META.get('HTTP_REFERER')
+
+
+def get_stock(request):
+    start_date = date(2016, 3, 12)
+    end_date = date(2016, 3, 16)
+
+    stock_info = stock.main()
+
+    return render_to_response( 'stock.html', { 'stock_info': stock_info})
