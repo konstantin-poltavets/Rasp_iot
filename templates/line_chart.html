@@ -1,48 +1,37 @@
-{% extends "index_1.html" %}
-{% block content %}
-   {% load static %}
+  <html>
+  <head>
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
- <script link rel="stylesheet" href="{% static 'css/mqtt.css' %}"></script>
     <script type="text/javascript">
- 
-        var my_chart_1 = [['Date',  'Humidity','Temperature']];
-        
-    {% for my_chart_hum in my_data_hum %}
+     google.charts.load('current', {packages: ['corechart', 'line']});
+google.charts.setOnLoadCallback(drawBasic);
 
-    var dat = {{my_date}}
-        my_chart_1.push([dat, parseFloat({{my_chart_hum.payload}}),20]);
-    {% endfor %}
-   
-      google.charts.load('current', {'packages':['corechart']});
-      google.charts.setOnLoadCallback(drawChart);
+function drawBasic() {
 
-      function drawChart() {
-        var data = google.visualization.arrayToDataTable(my_chart_1);
-        var options = {
-          title: 'Humidity and Temperature',
-          curveType: 'function',
-          legend: { position: 'bottom' }
-        };
+      var data = new google.visualization.DataTable();
+      data.addColumn('date', 'created_date');
+      data.addColumn('number', 'payload');
 
-        var chart = new google.visualization.LineChart(document.getElementById('curve_chart'));
 
-        chart.draw(data, options);
-      }
+
+data.addRows( [{% for i in my_data_hum %} [  new Date ('{{ i.created_date | date:'Y-m-d H:i' }}') , {{ i.payload }} ] , {% endfor %} ]);
+
+      var options = {
+        hAxis: {
+          title: 'Date'
+        },
+        vAxis: {
+          title: 'Shares, USD'
+        }
+      };
+
+      var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
+
+      chart.draw(data, options);
+    }
+
     </script>
-
-    <div  id="curve_chart" ></div>
-
-	  <div class="table-hover" >
-	  
-	  <h1>List</h1>
-    <table class="table-hover">
-        <tr><th>Date</th><th>Topic</th><th>Payload</th></tr>
-        {% for mqtt_1 in my_data_hum %}
-        <tr><td>{{ mqtt_1.created_date }}</td><td>{{ mqtt_1.topic }}</td><td>{{ mqtt_1.payload }}</td></tr>
-        {% endfor %}
-    </table>
-	  
-	  
-	  </div>
-
-{% endblock %}
+  </head>
+  <body>
+    <div id="chart_div" style="width: 900px; height: 500px"></div>
+  </body>
+</html>

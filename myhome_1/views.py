@@ -112,8 +112,8 @@ def view_func_iii(request):
 
 
 def view_func(request):
-    queryset_temp = mqtt.objects.all().filter(topic = "home/poliv/temp")[::2]
-    queryset_hum = mqtt.objects.all().filter(topic = "home/poliv/water")[::2]
+    queryset_temp = mqtt.objects.all().filter(topic = "home/poliv/temp")[::]
+    queryset_hum = mqtt.objects.all().filter(topic = "home/poliv/water").order_by('-created_date')
 
     return render(request, "line_chart.html", {"my_data_temp": queryset_temp, "my_data_hum": queryset_hum})
 
