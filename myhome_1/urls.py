@@ -28,5 +28,8 @@ urlpatterns = [
     path('back', views.get_success_url, name='get_success_url'),
     path('gchart', views.gchart, name='gchart_url'),
     path('get_stock/', views.get_stock, name="get_stock"),
+    path('indicator/', views.indicator, name="indicator"),
+    path('indicator_mqtt/', views.indicator_mqtt, name="indicator_mqtt"),
+    path('sec/', views.sec, name="sec"),
 ]
 

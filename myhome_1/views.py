@@ -18,8 +18,8 @@ from django.db.models.functions import Extract
 from random import randint
 from django.views.generic import TemplateView
 from chartjs.views.lines import BaseLineChartView
-from .script import stock
-
+from .script import stock #, orbitrack
+from time import gmtime, strftime
 
 
 class GazListjson(generics.ListAPIView):
@@ -132,9 +132,18 @@ def google_rest_int(request):
         return JsonResponse(serializer.data, safe=False)
 
 
+
+
 def google_rest(request):
         return render_to_response('test2020.html')
 
+
+def indicator(request):
+    return render_to_response('indicator_2.html')
+
+
+def indicator_mqtt(request):
+    return render_to_response('indicator_mqtt.html')
 
 
 class gazDetailView(generic.DetailView):
@@ -333,3 +342,10 @@ def get_stock(request):
     stock_info = stock.main()
 
     return render_to_response( 'stock.html', { 'stock_info': stock_info})
+
+
+def sec(request):
+
+    secunds =  (strftime("%H:%M:%S", gmtime()))
+    #orbitrack = orbitrack
+    return HttpResponse(secunds)
