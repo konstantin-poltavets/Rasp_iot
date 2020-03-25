@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load staticfiles %}
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
+<script src="http://ajax.aspnetcdn.com/ajax/knockout/knockout-2.2.1.js"></script>
+<script src="{% static 'iot/js/sevenSeg.js' %}"></script>
+
+
+    <meta charset="UTF-8">
+    <title>Indicator</title>
+
+</head>
+<body>
+
+<div id="seven-seg-array" style="width: 275px"></div>
+<div id="seven-seg-array_2" style="width: 275px"></div>
+<script>
+
+function show()  
+        {  
+            $.ajax({  
+                url: "{% url 'sec' %}",
+                cache: false,  
+                success: function(t){
+                    $("#seven-seg-array").sevenSeg({ digits: 9, value: t });
+                }  
+            });  
+        }  
+      
+    
+	setInterval('show()',1000);
+
+function show_2()
+        {
+            $.ajax({
+                url: "{% url 'sec' %}",
+                cache: false,
+                success: function(t){
+                    $("#seven-seg-array_2").sevenSeg({ digits: 3, value: 222 , colorOn: "Lime",
+        slant: 0});
+                }
+            });
+        }
+
+
+	setInterval('show_2()',1000);
+
+
+
+</script>
+
+
+</body>
+</html>
