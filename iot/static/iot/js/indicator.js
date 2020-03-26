@@ -3,7 +3,7 @@ function startConnect() {
     // Generate a random client ID
     clientID = "clientID-" + parseInt(Math.random() * 100);
 
-    host = "kotok.asuscomm.com";
+    host = "192.168.1.141";
     port = "1884";
 
     // Print output for the user in the messages div
@@ -22,6 +22,8 @@ function startConnect() {
                 useSSL: false,
                 keepAliveInterval: 100});
 console.log("attempting to connect...")
+var tim1 = Date.now()
+
 }
 
 // Called when the client connects
@@ -30,7 +32,8 @@ function onConnect() {
     topic = "home/orbitrack/impulse";
 
     client.subscribe(topic);
-	$("#seven-seg-array").sevenSeg({ digits: 4, value: 0 });
+     $("#seven-seg-array").sevenSeg({ digits: 4, value: 0 });
+	$("#seven-seg-array_1").sevenSeg({ digits: 3, value: 0 });
 }
 
 // Called when the client loses its connection
@@ -48,11 +51,15 @@ function onMessageArrived(message) {
     console.log(message.payloadString);
     document.getElementById("messages").innerHTML += '<span>Topic: ' + message.destinationName + '  | ' + message.payloadString + '</span><br/>';
 	t = message.payloadString;
-	//t = t+1;
-	
 	 $("#seven-seg-array").sevenSeg({ digits: 4, value: t });
+//	 var tim = Date.now() - tim1;
+//var time_2 = tim.toString();
+//console.log(time_2);
 
+	// $("#seven-seg-array_1").sevenSeg({ digits: 14, value: time_2 });
 	}
+
+
 
 // Called when the disconnection button is pressed
 function startDisconnect() {

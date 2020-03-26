@@ -29,6 +29,23 @@
 
                 </li>
 
+
+                                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle mb-0 h5" href="" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Sport
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="{% url 'indicator_mqtt' %}">Orbitrack</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="{% url 'template' %}">Graph_2</a>
+                    </div>
+
+                </li>
+
+
+
+
+
                 <li class="nav-item">
                     <a class="nav-link dropdown-toggle mb-0 h5" href="{% url 'publish_1' %}">Publish_1</a>
                 </li>

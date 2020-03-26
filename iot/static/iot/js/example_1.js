@@ -3,7 +3,7 @@ function startConnect() {
     // Generate a random client ID
     clientID = "clientID-" + parseInt(Math.random() * 100);
 
-    host = "kotok.asuscomm.com";
+    host = "192.168.1.141";
     port = "1884";
 
     // Print output for the user in the messages div
