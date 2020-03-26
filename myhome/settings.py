@@ -30,7 +30,7 @@ DEBUG = True
 
 #APPEND_SLASH = False
 
-ALLOWED_HOSTS = ['kotok.asuscomm.com', '192.168.1.141', 'localhost', '192.168.1.143', '127.0.0.1', '84.144.207.13']
+ALLOWED_HOSTS = ['kotok.asuscomm.com', '192.168.1.141', 'localhost', '192.168.1.143', '127.0.0.1', '82.144.207.13']
 
 
 # Application definition
