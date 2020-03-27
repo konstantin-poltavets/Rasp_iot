@@ -10,12 +10,8 @@
 {% load static %}
   <title>Eclipse Paho MQTT JavaScript Client Example</title>
         <link rel="stylesheet" href="{% static 'iot/css/example_1.css' %}">
-
-
   <script type="text/javascript" language= "javascript"></script>
  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-
-
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
 <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
 <script src="http://ajax.aspnetcdn.com/ajax/knockout/knockout-2.2.1.js"></script>
@@ -30,18 +26,16 @@
 
 
   <div id="messages"></div>
+<h3> Distance m: </h3>
+  <div id="seven-seg-array" style="width: 275px"></div>
+
+      <br>
+  <h3> Time sec: </h3>
+  <div id="seven-seg-array_1" style="width: 275px"></div>
 
    <script>
   startConnect();
   </script>
-
-
-  <div id="seven-seg-array" style="width: 275px"></div>
-
-      <br>
-
-
-        <div id="seven-seg-array_1" style="width: 275px"></div>
 
 
 {% endblock %}

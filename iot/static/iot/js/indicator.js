@@ -1,9 +1,10 @@
 
+var tim_0 = Date.now();
 function startConnect() {
     // Generate a random client ID
     clientID = "clientID-" + parseInt(Math.random() * 100);
 
-    host = "192.168.1.141";
+    host = "82.144.207.13";
     port = "1884";
 
     // Print output for the user in the messages div
@@ -21,8 +22,10 @@ function startConnect() {
     client.connect({onSuccess:onConnect,
                 useSSL: false,
                 keepAliveInterval: 100});
-console.log("attempting to connect...")
-var tim1 = Date.now()
+console.log("attempting to connect...");
+
+
+
 
 }
 
@@ -32,8 +35,10 @@ function onConnect() {
     topic = "home/orbitrack/impulse";
 
     client.subscribe(topic);
-     $("#seven-seg-array").sevenSeg({ digits: 4, value: 0 });
-	$("#seven-seg-array_1").sevenSeg({ digits: 3, value: 0 });
+         $("#seven-seg-array").sevenSeg({ digits: 4, value: 0000 });
+	$("#seven-seg-array_1").sevenSeg({ digits: 3, value: 0000, colorOff: "#003200",
+		colorOn: "Lime",  });
+
 }
 
 // Called when the client loses its connection
@@ -52,11 +57,11 @@ function onMessageArrived(message) {
     document.getElementById("messages").innerHTML += '<span>Topic: ' + message.destinationName + '  | ' + message.payloadString + '</span><br/>';
 	t = message.payloadString;
 	 $("#seven-seg-array").sevenSeg({ digits: 4, value: t });
-//	 var tim = Date.now() - tim1;
-//var time_2 = tim.toString();
-//console.log(time_2);
+var tim = Math.round((Date.now() - tim_0)/1000 );
+var time_2 = tim.toString();
+console.log(time_2);
 
-	// $("#seven-seg-array_1").sevenSeg({ digits: 14, value: time_2 });
+	$("#seven-seg-array_1").sevenSeg({ digits: 4, value: time_2 , decimalPoint: true});
 	}
 
 
