@@ -19,19 +19,48 @@
 <script src="{% static 'iot/js/sevenSeg.js' %}"></script>
 <script src="{% static 'iot/js/indicator.js' %}" > </script>
   <script src="{% static 'iot/js/paho-mqtt.js' %}"> </script>
+
+
+      <link rel="stylesheet" media="screen" href="https://fontlibrary.org/face/segment7" type="text/css"/>
+
+
      </head>
 
 
   <body>
 
 
-  <div id="messages"></div>
-<h3> Distance m: </h3>
-  <div id="seven-seg-array" style="width: 275px"></div>
+  <div id="messages" class="row"></div>
 
+
+ <div class="container">
+     <h3> Distance m: </h3>
+  <div id="seven-seg-array"  class="row"  ></div>
+ </div>
       <br>
-  <h3> Time sec: </h3>
-  <div id="seven-seg-array_1" style="width: 275px"></div>
+
+
+  <div class="container">
+      
+
+       <h3> Time: </h3>
+  <div class="row">
+    <div id="seven-seg-array_h"  class="col">
+
+    </div>
+   <div id="seven-seg-array_m"  class="col">
+
+    </div>
+    <div id="seven-seg-array_s"  class="col">
+
+  </div>
+</div>
+
+
+
+
+
+
 
    <script>
   startConnect();

@@ -1,5 +1,5 @@
 
-var tim_0 = Date.now();
+let tim_0 = Date.now();
 function startConnect() {
     // Generate a random client ID
     clientID = "clientID-" + parseInt(Math.random() * 100);
@@ -36,9 +36,9 @@ function onConnect() {
 
     client.subscribe(topic);
          $("#seven-seg-array").sevenSeg({ digits: 4, value: 0000 });
-	$("#seven-seg-array_1").sevenSeg({ digits: 3, value: 0000, colorOff: "#003200",
-		colorOn: "Lime",  });
-
+	$("#seven-seg-array_s").sevenSeg({ digits: 2, value: 00, colorOff: "#003200", colorOn: "Lime",  decimalPoint: true});
+    $("#seven-seg-array_m").sevenSeg({ digits: 2, value: 00, colorOff: "#003200", colorOn: "Lime",  decimalPoint: true});
+    $("#seven-seg-array_h").sevenSeg({ digits: 2, value: 00, colorOff: "#003200", colorOn: "Lime",  decimalPoint: true});
 }
 
 // Called when the client loses its connection
@@ -49,19 +49,41 @@ function onConnectionLost(responseObject) {
     }
 }
 
-var t = 0;
+
 
 // Called when a message arrives
 function onMessageArrived(message) {
     console.log(message.payloadString);
     document.getElementById("messages").innerHTML += '<span>Topic: ' + message.destinationName + '  | ' + message.payloadString + '</span><br/>';
-	t = message.payloadString;
+let t = message.payloadString;
 	 $("#seven-seg-array").sevenSeg({ digits: 4, value: t });
-var tim = Math.round((Date.now() - tim_0)/1000 );
-var time_2 = tim.toString();
-console.log(time_2);
+let time_s = 0;
+let time_m = 0;
 
-	$("#seven-seg-array_1").sevenSeg({ digits: 4, value: time_2 , decimalPoint: true});
+let  time_row = Math.trunc((Date.now()+3600000-60000 - tim_0)/1000 );
+if (time_row  > 59) { time_s = time_row % 60; }
+else { time_s = time_row; }
+if (time_s < 10 ){time_s = '0' + time_s.toString();}
+
+let time_mm = Math.floor(time_row / 60);
+
+if (time_mm  > 59) { time_m = time_mm % 60; }
+else { time_m = time_mm; }
+if (time_m < 10  ){time_m = '0' + time_m.toString();}
+
+
+
+let time_h = Math.floor(time_row / 60/60);
+
+
+console.log(time_mm);
+console.log(time_s);
+console.log(time_m);
+console.log(time_h);
+
+	$("#seven-seg-array_h").sevenSeg({ digits: 2, value: time_h.toString() , decimalPoint: true});
+	$("#seven-seg-array_m").sevenSeg({ digits: 2, value: time_m.toString() , decimalPoint: true});
+	$("#seven-seg-array_s").sevenSeg({ digits: 2, value: time_s.toString() , decimalPoint: true});
 	}
 
 
