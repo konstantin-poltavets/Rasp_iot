@@ -103,21 +103,18 @@ class gazoline(models.Model):
 
 class orbi_tmp(models.Model):
 
-    distance = models.IntegerField()
-    time = models.IntegerField()
+    distance = models.PositiveIntegerField(blank=False, default=0)
+    time = models.PositiveIntegerField(blank=False, default=0)
     speed = models.DecimalField(max_digits=4, decimal_places=2)
 
 
 
 class orbitrack(models.Model):
     start = models.DateField(default=timezone.now)
-    finish = models.DateField(default=timezone.now)
-
-    distance = models.DecimalField(max_digits=7, decimal_places=2)
-    price_liter = models.DecimalField(max_digits=7, decimal_places=2)
-    price_after_disc = models.DecimalField(max_digits=7, decimal_places=2)
-    millage = models.PositiveIntegerField(blank=False, default=120000)
+    distance = models.PositiveIntegerField(blank=False, default=0)
+    time = models.PositiveIntegerField(blank=False, default=0)
+    speed = models.DecimalField(max_digits=4, decimal_places=2)
 
     @property
-    def price_before_disc(self):
-        return self.price_liter * self.liters
+    def finish(self):
+        return self.start +  self.time*1000
