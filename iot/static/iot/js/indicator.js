@@ -88,7 +88,7 @@ let time_h = Math.floor(time_row / 60/60);
 
 	$("#seven-seg-array_s").sevenSeg({ digits: 2, value: time_s.toString() , decimalPoint: true});
 
-
+document.getElementById('messages').scrollTop = 9999999;
 
 	}
 
@@ -103,5 +103,5 @@ function startDisconnect() {
 
 
 //	setInterval('show()',1000);
-	
+
 
