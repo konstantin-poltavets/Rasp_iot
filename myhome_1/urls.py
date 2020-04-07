@@ -24,12 +24,15 @@ urlpatterns = [
     path('gaz_edit/<int:pk>/delete/', views.GazDelete.as_view(), name='gaz_del'),
     path('gaz_search/', views.gaz_search, name = 'gaz_search'),
     path('gaz_search_result/', views.gaz_search_result, name = 'gaz_search_result'),
-    path('export/csv/', views.export_users_csv, name='export_users_csv'),
+    path('export/csv/gaz', views.export_users_csv, name='export_gaz_csv'),
+    path('export/csv/orbi', views.export_orbitrack_csv, name='export_orbi_csv'),
+
     path('back', views.get_success_url, name='get_success_url'),
     path('gchart', views.gchart, name='gchart_url'),
     path('get_stock/', views.get_stock, name="get_stock"),
     path('indicator/', views.indicator, name="indicator"),
     path('indicator_mqtt/', views.indicator_mqtt, name="indicator_mqtt"),
     path('sec/', views.sec, name="sec"),
+    path('orbi_list/', views.orbi_tmpListView.as_view(), name='orbi_list'),
 ]
 

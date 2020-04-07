@@ -1,0 +1,44 @@
+{% extends 'index_1.html' %}
+
+<div class="row">
+    <div class="col-xs-12">
+
+{% block content %}
+<h3>Orbitrack:</h3>
+
+{% load staticfiles %}
+
+<form>{% csrf_token %}
+    <table class="table table-sm"  width="130%">
+        <tr><th>id </th>
+            <th>distance </th>
+            <th>time</th>
+            <th>speed</th>
+            <th>created</th>
+            <th>speeds</th>
+
+        </tr>
+
+    {% for gaz in object_list %}
+
+        <tr>
+            <td> {{ gaz.id }} </td>
+            <td> {{ gaz.distance }} </td>
+            <td> {{ gaz.time }} </td>
+            <td> {{ gaz.speed }} </td>
+            <td> {{ gaz.created }} </td>
+            <td> {{ gaz.speeds |floatformat}} </td>
+
+        </tr>
+
+       {% endfor %}
+
+    </table>
+
+
+ </form>
+
+{% endblock %}
+
+    </div>
+</div>

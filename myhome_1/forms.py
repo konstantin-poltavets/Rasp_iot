@@ -1,7 +1,7 @@
 from django import forms
 import datetime
 from tempus_dominus.widgets import DatePicker, TimePicker, DateTimePicker
-from .models import gazoline
+from .models import gazoline, orbi_tmp
 
 
 class DateForm(forms.Form):
@@ -61,3 +61,7 @@ class gazForm(forms.ModelForm):
         fields = '__all__'
 
 
+class orbiForm(forms.ModelForm):
+    class Meta:
+        model = orbi_tmp
+        fields = '__all__'

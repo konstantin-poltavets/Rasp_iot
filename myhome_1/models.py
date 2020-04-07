@@ -2,6 +2,7 @@ from django.conf import settings
 from django.db import models
 from django.utils import timezone
 from django.db.models import Avg, Count, Sum, Min, Max
+from django.utils.timezone import now
 
 class mqtt(models.Model):
     topic = models.CharField(max_length=200)
@@ -104,9 +105,12 @@ class gazoline(models.Model):
 class orbi_tmp(models.Model):
 
     distance = models.PositiveIntegerField(blank=False, default=0)
-    time = models.PositiveIntegerField(blank=False, default=0)
-    speed = models.DecimalField(max_digits=4, decimal_places=2)
-
+    time = models.DecimalField(max_digits=7, decimal_places=2)
+    speed = models.DecimalField(max_digits=4, decimal_places=2, default = 0)
+    created = models.DateTimeField(auto_now=True)
+    @property
+    def speeds(self):
+        return float(self.distance / self.time) * 3.6
 
 
 class orbitrack(models.Model):

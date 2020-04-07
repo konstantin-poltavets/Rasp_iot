@@ -2,14 +2,14 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.views import generic
 from .serializers import mqttSerializer, gazSerializer
 from rest_framework import filters, generics
-from .models import mqtt, gazoline
+from .models import mqtt, gazoline, orbi_tmp
 from django_filters import rest_framework as filters
 from rest_framework import viewsets
 from rest_framework.filters import SearchFilter, OrderingFilter
 from django.shortcuts import render_to_response
 from qsstats import QuerySetStats
 from datetime import date
-from .forms import MyForm, gazForm
+from .forms import MyForm, gazForm, orbiForm
 from django.http import HttpResponse, JsonResponse
 from django.db.models import F, Count, Value, Avg, Sum,  Min, Max
 from django.views.generic.edit import DeleteView
@@ -18,7 +18,7 @@ from django.db.models.functions import Extract
 from random import randint
 from django.views.generic import TemplateView
 from chartjs.views.lines import BaseLineChartView
-from .script import stock #, orbitrack
+from .script import stock ,orbitrack
 from time import gmtime, strftime
 
 
@@ -52,7 +52,7 @@ class gazListView(generic.ListView):
     """Generic class-based list view for a list of authors."""
     model = gazoline
     fields = '__all__'
-   # paginate_by = 3
+   # paginate_by = 3views.indicator_mqtt
 
 
 def graph_1(request):
@@ -143,6 +143,7 @@ def indicator(request):
 
 
 def indicator_mqtt(request):
+    orbitrack.main()
     return render_to_response('indicator_mqtt.html')
 
 
@@ -331,6 +332,20 @@ def export_users_csv(request):
     return response
 
 
+def export_orbitrack_csv(request):
+    response = HttpResponse(content_type='text/csv')
+    response['Content-Disposition'] = 'attachment; filename="myhome_1_orbitrack.csv"'
+
+    writer = csv.writer(response)
+    writer.writerow(['id', 'distance', 'time', 'speed', 'created'])
+
+    orbi = orbi_tmp.objects.all().values_list( 'id', 'distance', 'time', 'speed', 'created')
+    for orbi in orbi:
+        writer.writerow(orbi)
+
+    return response
+
+
 def get_success_url(self):
     return request.META.get('HTTP_REFERER')
 
@@ -349,3 +364,8 @@ def sec(request):
     secunds =  (strftime("%H:%M:%S", gmtime()))
     #orbitrack = orbitrack
     return HttpResponse(secunds)
+
+class orbi_tmpListView(generic.ListView):
+    """Generic class-based list view for a list of authors."""
+    model = orbi_tmp
+    fields = '__all__'
