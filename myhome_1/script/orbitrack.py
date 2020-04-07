@@ -7,10 +7,11 @@ import datetime
 
 def on_message_msgs(mosq, obj, msg):
     print("MESSAGES:", str(msg.payload))
+    print(os.getpid())
 
     pload = json.loads(msg.payload)
     if int(pload['distance']) % 10  == 0:
-        #print(os.path.abspath('C:\\Users\\poltavet\\PycharmProjects\\Rasp_IoT\\db.sqlite3'))
+
         if os.name == "nt":
             conn = sqlite3.connect(os.path.abspath('C:\\Users\\poltavet\\PycharmProjects\\Rasp_IoT\\db.sqlite3'))
         else:

@@ -34,5 +34,6 @@ urlpatterns = [
     path('indicator_mqtt/', views.indicator_mqtt, name="indicator_mqtt"),
     path('sec/', views.sec, name="sec"),
     path('orbi_list/', views.orbi_tmpListView.as_view(), name='orbi_list'),
+    path('orbi_stop/', views.orbiStop, name='orbi_stop'),
 ]
 

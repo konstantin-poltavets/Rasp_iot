@@ -86,14 +86,15 @@
 
 </script-->
 
-
-  <input id="elem" type="button" class="btn btn-danger" value="Stop">
-<script>
+<form action= "{% url 'orbi_stop' %}" method="LINK">
+  <input id="elem" type="submit" class="btn btn-danger" value="Stop" >
+<!--script>
   elem.onclick = function() {
     alert('Спасибо');
-  };
-</script>
 
+  };
+</script-->
+</form>
 
 {% endblock %}
 

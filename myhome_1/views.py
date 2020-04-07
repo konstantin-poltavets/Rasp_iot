@@ -18,7 +18,7 @@ from django.db.models.functions import Extract
 from random import randint
 from django.views.generic import TemplateView
 from chartjs.views.lines import BaseLineChartView
-from .script import stock ,orbitrack
+from .script import stock ,orbitrack, orbi_stop
 from time import gmtime, strftime
 
 
@@ -145,6 +145,10 @@ def indicator(request):
 def indicator_mqtt(request):
     orbitrack.main()
     return render_to_response('indicator_mqtt.html')
+
+def orbiStop(request):
+    orbi_stop.main()
+    return render_to_response('index_1.html')
 
 
 class gazDetailView(generic.DetailView):
