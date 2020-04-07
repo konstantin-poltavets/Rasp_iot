@@ -70,7 +70,7 @@
   startConnect();
   </script>
 
-  <script>
+  <!--script>
 
 	$(window).on("beforeunload", function() {
 
@@ -84,6 +84,14 @@
 
 	});
 
+</script-->
+
+
+  <input id="elem" type="button" class="btn btn-danger" value="Stop">
+<script>
+  elem.onclick = function() {
+    alert('Спасибо');
+  };
 </script>
 
 

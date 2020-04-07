@@ -10,8 +10,12 @@ def on_message_msgs(mosq, obj, msg):
 
     pload = json.loads(msg.payload)
     if int(pload['distance']) % 10  == 0:
-        print(os.path.abspath('C:\\Users\\poltavet\\PycharmProjects\\Rasp_IoT\\db.sqlite3'))
-        conn = sqlite3.connect(os.path.abspath('C:\\Users\\poltavet\\PycharmProjects\\Rasp_IoT\\db.sqlite3'))
+        #print(os.path.abspath('C:\\Users\\poltavet\\PycharmProjects\\Rasp_IoT\\db.sqlite3'))
+        if os.name == "nt":
+            conn = sqlite3.connect(os.path.abspath('C:\\Users\\poltavet\\PycharmProjects\\Rasp_IoT\\db.sqlite3'))
+        else:
+            conn = sqlite3.connect(os.path.abspath('/home/pi/iot/myhome/db.sqlite3'))
+
         cursor = conn.cursor()
         cursor.execute('''INSERT INTO myhome_1_orbi_tmp(created, distance, time, speed) VALUES (?,?,?,?)''',
                    (datetime.datetime.now(), int(pload['distance']), float(pload['time']), float(pload['speed']),))
