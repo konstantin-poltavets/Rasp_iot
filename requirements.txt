@@ -5,7 +5,7 @@ Django==2.1.7
 django-google-charts==0.1.1
 django-qsstats-magic==1.0.0
  django-tempus-dominus==5.1.2.4
-djangorestframework==3.9.2
+djangorestframework==3.11.2
 djangorestframework-filter==0.2.2
  Markdown==3.0.1
 paho-mqtt==1.4.0
